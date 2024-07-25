@@ -236,6 +236,16 @@
   <div class="seeOnline">
     <div class="container">
       <div class="seeOnline-row row">
+        <div class="seeOnline-row-leftMobile col-sm-3 col-12">
+          <h2>Проверьте, как камера работает онлайн<span class="pink">˙</span></h2>
+          <div class="content">
+            <img src="@/assets/img/see.png" alt="product" />
+            <div class="seeOnline-row-leftMobile-product">
+              <h3>Название камеры</h3>
+              <p>технические данные и другая нужная инфа</p>
+            </div>
+          </div>
+        </div>
         <div class="seeOnline-row-left col-sm-3 col-12">
           <h2>Проверьте, как камера работает онлайн<span class="pink">˙</span></h2>
           <div class="seeOnline-row-left-product">
@@ -245,6 +255,7 @@
         </div>
         <div class="padding col-sm-2 col-0"></div>
         <div class="seeOnline-row-right col-sm-7 col-12">
+          <img src="@/assets/img/house.png" alt="house" />
           <div class="seeOnline-row-right-example">Пример работы</div>
           <div class="seeOnline-row-right-linkToVideo">
             Смотреть <i class="fa-solid fa-play"></i>
@@ -872,6 +883,7 @@ h2 {
 
 @media (max-width: 768px) {
   .catalog {
+    display: none;
     &-slider {
       display: none;
       & .mobileSlider {
@@ -946,6 +958,9 @@ h2 {
         border-radius: 100px;
         border: 1px solid white;
       }
+      & img {
+        display: none;
+      }
     }
   }
   &-navigation {
@@ -965,6 +980,63 @@ h2 {
       border-radius: 50px;
       margin-right: 8px;
       cursor: pointer;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .seeOnline {
+    padding: 33px 0 0 0;
+    &-row {
+      &-left {
+        display: none !important;
+      }
+      &-leftMobile {
+        margin-bottom: 40px;
+        & h2 {
+          color: white;
+          font-size: 20px !important;
+          margin-bottom: 26px;
+          & .pink {
+            color: $pink;
+          }
+        }
+        &-product {
+          & h3 {
+            color: white;
+            font-size: 15px;
+            font-weight: 700;
+          }
+          & p {
+            color: white;
+            font-size: 11px;
+            font-weight: 300;
+          }
+        }
+        & .content {
+          display: flex;
+          & img {
+            width: 60%;
+            border-radius: 8px;
+            margin-right: 15px;
+          }
+        }
+      }
+
+      &-right {
+        padding: 0 12px !important;
+        background: none;
+        display: block;
+        & img {
+          display: inline !important;
+          width: 100%;
+          border-radius: 8px;
+        }
+
+        &-example {
+          top: 0;
+        }
+      }
     }
   }
 }

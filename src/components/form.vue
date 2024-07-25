@@ -104,4 +104,9 @@
     }
   }
 }
+
+@media (max-width: 768px) {
+  .form {
+  }
+}
 </style>

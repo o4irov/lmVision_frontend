@@ -84,4 +84,8 @@ li a {
 .designed {
   color: rgb(255, 255, 255, 0.3);
 }
+@media (max-width: 768px) {
+  footer {
+  }
+}
 </style>
