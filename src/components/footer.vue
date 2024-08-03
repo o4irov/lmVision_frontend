@@ -45,8 +45,10 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss">
+@import "@/assets/styles/variables.scss";
 footer {
+  font-family: $unbounded-v;
   background-color: #212529;
   color: #ffffff;
   font-size: 21px;
@@ -62,14 +64,22 @@ footer {
   list-style-type: none;
   margin: 0;
   padding: 0;
-  margin-right: 20px;
+  margin-right: 30px;
+  margin-bottom: 20px;
   gap: 8px;
-}
-ul:last-child {
-  margin-left: 20px;
+
+  & p {
+    color: #ffffff !important;
+    font-size: 21px;
+  }
+
+  &:last-child {
+    margin-left: 40px;
+  }
 }
 .lists li {
   font-size: 18px;
+  margin-bottom: 4px;
 }
 li a {
   text-decoration: none;
@@ -80,12 +90,41 @@ li a {
   justify-content: space-between;
   font-size: 14px;
   font-weight: 300;
+
+  & p {
+    color: #ffffff !important;
+  }
+
+  & .designed {
+    color: rgb(255, 255, 255, 0.3);
+  }
 }
-.designed {
-  color: rgb(255, 255, 255, 0.3);
-}
+
 @media (max-width: 768px) {
   footer {
+    padding: 20px 0 10px 0;
+
+    & .lists {
+      flex-direction: column;
+      margin-bottom: 50px;
+      & ul {
+        &:last-child {
+          margin-left: 0;
+        }
+        & li {
+          font-size: 14px;
+        }
+      }
+    }
+
+    & .copyright {
+      flex-direction: column;
+      align-items: center;
+
+      & .designed {
+        text-align: center;
+      }
+    }
   }
 }
 </style>

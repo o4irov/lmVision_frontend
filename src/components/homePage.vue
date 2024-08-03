@@ -180,8 +180,9 @@
             :key="filter.name"
             :class="{ active: currentFilter === filter.name }"
             class="catalog-head-list-item"
+            @click="changeFilter(filter.name)"
           >
-            <a @click="changeFilter(filter.name)">{{ filter["text"] }}</a>
+            <a>{{ filter["text"] }}</a>
           </li>
         </ul>
       </div>
@@ -216,12 +217,8 @@
           :modules="modules"
           class="mobileSlider"
         >
-          <swiper-slide>
-            <div
-              class="catalog-slider-grid-item"
-              v-for="(catalogItem, index) in catalog"
-              :key="index"
-            >
+          <swiper-slide v-for="(catalogItem, index) in catalog.slice(0, 3)" :key="index">
+            <div class="catalog-slider-grid-item">
               <img src="@/assets/img/noimage.png" :alt="catalogItem.name" />
               <h3 class="catalog-slider-item-name">{{ catalogItem.name }}</h3>
               <p class="catalog-slider-item-description">
@@ -792,6 +789,7 @@ h2 {
   color: $mainText;
   margin-bottom: 70px;
   &-head {
+    margin-bottom: 10px;
     & h2 {
       margin-bottom: 64px;
     }
@@ -856,7 +854,7 @@ h2 {
       }
     }
     & .mobileSlider {
-      display: none !important;
+      display: none;
     }
   }
 
@@ -883,11 +881,17 @@ h2 {
 
 @media (max-width: 768px) {
   .catalog {
-    display: none;
     &-slider {
-      display: none;
+      & .mySwiper {
+        display: none;
+      }
       & .mobileSlider {
-        display: flex !important;
+        display: block;
+      }
+      &-grid {
+        &-item {
+          height: 530px;
+        }
       }
     }
   }
@@ -962,6 +966,10 @@ h2 {
         display: none;
       }
     }
+
+    &-leftMobile {
+      display: none;
+    }
   }
   &-navigation {
     margin-bottom: 65px;
@@ -992,6 +1000,7 @@ h2 {
         display: none !important;
       }
       &-leftMobile {
+        display: block;
         margin-bottom: 40px;
         & h2 {
           color: white;

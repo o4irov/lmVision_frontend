@@ -92,8 +92,10 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+@import "@/assets/styles/variables.scss";
 nav {
+  font-family: $unbounded-v;
   z-index: 3;
   position: fixed;
   top: 0;
@@ -167,7 +169,6 @@ ul {
   font-size: 1rem;
   line-height: 1.3rem;
   display: flex;
-  color: #a6a6ab;
   text-decoration: none;
 }
 .logo .image {
@@ -177,10 +178,11 @@ ul {
 .name p {
   margin: 0;
   padding: 0;
+  color: rgba(166, 166, 171, 1) !important;
 }
 
 .name .lm {
-  font-weight: bold;
+  font-weight: 400;
 }
 
 .name .vs {
