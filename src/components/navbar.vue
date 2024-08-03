@@ -39,7 +39,7 @@ export default {
       pages: [
         { name: "О нас", path: "about" },
         { name: "Каталог", path: "catalog" },
-        { name: "ДоставкаОплата", path: "payment" },
+        { name: "Доставка|Оплата", path: "payment" },
         { name: "Контакты", path: "contacts" },
       ],
       currentPage: "Home",

@@ -5,7 +5,7 @@
       <div class="mainBlock-text col-md-6 col-12">
         <h1>
           <span class="mainBlock-text-pink">LM</span> Video <br />
-          Solutions<span class="mainBlock-text-pink">.</span>
+          Solutions<span class="mainBlock-text-pink point">.</span>
         </h1>
         <div class="row">
           <p class="col-sm-8">
@@ -26,7 +26,7 @@
   <div class="container">
     <div class="reputation">
       <h2>Наша репутация</h2>
-      <div class="reputation-body row">
+      <div :class="isScrolled(300, 800)" class="reputation-body row">
         <div class="reputation-body-border col-12 col-sm-4">
           <div class="reputation-body-block">
             <div class="reputation-body-block-logo">
@@ -38,7 +38,7 @@
             </div>
           </div>
         </div>
-        <div class="reputation-body-border col-12 col-sm-4 p-4">
+        <div class="reputation-body-border col-12 col-sm-4">
           <div class="reputation-body-block">
             <div class="reputation-body-block-logo">
               <img src="@/assets/img/support.svg" alt="support" />
@@ -49,7 +49,7 @@
             </div>
           </div>
         </div>
-        <div class="reputation-body-border col-12 col-sm-4 p-4">
+        <div class="reputation-body-border col-12 col-sm-4">
           <div class="reputation-body-block">
             <div class="reputation-body-block-logo">
               <img src="@/assets/img/projects.svg" alt="support" />
@@ -69,7 +69,7 @@
         решения в области видеонаблюдения, способствующие созданию безопасного и
         технологичного будущего.
       </p>
-      <div class="choose-cameras row gx-3">
+      <div :class="isScrolled(950, null)" class="choose-cameras row gx-3">
         <div class="choose-cameras-frame col-3">
           <img src="@/assets/img/home.png" alt="home" />
         </div>
@@ -98,7 +98,7 @@
       <div class="about-content">
         <img src="@/assets/img/about.png" alt="we" class="about-content-image" />
         <div class="about-content-text">
-          <h2>Раздел о нас и кто мы</h2>
+          <h2 :class="isScrolled(1500, 3000)">Раздел о нас и кто мы</h2>
           <p>
             Уже 10 лет мы занимаем лидирующие позиции на рынке видеонаблюдения. Благодаря
             использованию передовых технологий, мы предлагаем решения, которые
@@ -111,9 +111,16 @@
             созданию безопасного и технологически продвинутого будущего.
           </p>
           <router-link :to="'/about'" class="about-content-text-link">
-            Читать далее &nbsp;<i class="fa-solid fa-arrow-right arrow"></i>
+            Читать далее &nbsp;<i
+              :class="isScrolled(1900, 3900)"
+              class="fa-solid fa-arrow-right arrow"
+            ></i>
           </router-link>
-          <router-link :to="'/portfolio'" class="about-content-text-button">
+          <router-link
+            :class="isScrolled(1900, 3900)"
+            :to="'/portfolio'"
+            class="about-content-text-button"
+          >
             портфолио
           </router-link>
         </div>
@@ -122,7 +129,7 @@
   </div>
   <div class="container">
     <div class="experience row">
-      <div class="experience-left col-sm-8 col-12">
+      <div :class="isScrolled(2500, 4700)" class="experience-left col-sm-8 col-12">
         <div class="experience-left-card clients">
           <span class="experience-left-card-num">84</span>
           <br />
@@ -164,7 +171,13 @@
         </div>
       </div>
       <div class="experience-right col-sm-4 col-12">
-        <h1>Более <span class="experience-right-pink">10 лет</span> работы</h1>
+        <h1>
+          Более
+          <span :class="isScrolled(2500, 4300)" class="experience-right-pink"
+            >10 лет</span
+          >
+          работы
+        </h1>
         <p>Мы там то, мы там сё, жыли были, тили тили трали вали</p>
         <router-link :to="'/form'" class="pinkButton">Оставить заявку</router-link>
       </div>
@@ -308,6 +321,8 @@ export default {
       itemsPerPage: 6,
       currentPage: 1,
       currentFilter: "products",
+      scrollY: 0,
+      scrolls: new Set(),
     };
   },
   setup() {
@@ -334,6 +349,27 @@ export default {
     changeFilter(filter) {
       this.currentFilter = filter;
     },
+    handleScroll() {
+      this.scrollY = window.scrollY;
+      console.log(this.scrollY);
+    },
+    isScrolled(desktop, mobile) {
+      if (this.scrolls.has(desktop)) {
+        return { animated: true };
+      }
+
+      var isAnimate = this.scrollY > (window.innerWidth >= 768 ? desktop : mobile);
+      if (isAnimate) {
+        this.scrolls.add(desktop);
+      }
+      return { animated: isAnimate };
+    },
+  },
+  created() {
+    window.addEventListener("scroll", this.handleScroll);
+  },
+  unmounted() {
+    window.removeEventListener("scroll", this.handleScroll);
   },
   mounted() {
     const catalog = document.createElement("a");
@@ -447,9 +483,65 @@ h2 {
     p {
       font-size: 18px;
     }
+
+    & .point {
+      display: inline-block;
+      animation: jump 3s forwards;
+    }
   }
   &-mobileImg {
     display: none;
+  }
+}
+
+@keyframes jump {
+  0% {
+    transform: translateY(-100px);
+    animation-timing-function: ease-in;
+  }
+  20% {
+    transform: translateY(0);
+    animation-timing-function: ease-out;
+  }
+  30% {
+    transform: translateY(-70px);
+    animation-timing-function: ease-in;
+  }
+  40% {
+    transform: translateY(0);
+    animation-timing-function: ease-out;
+  }
+  50% {
+    transform: translateY(-50px);
+    animation-timing-function: ease-in;
+  }
+  60% {
+    transform: translateY(0);
+    animation-timing-function: ease-out;
+  }
+  70% {
+    transform: translateY(-40px);
+    animation-timing-function: ease-in;
+  }
+  80% {
+    transform: translateY(0);
+    animation-timing-function: ease-out;
+  }
+  85% {
+    transform: translateY(-20px);
+    animation-timing-function: ease-in;
+  }
+  90% {
+    transform: translateY(0);
+    animation-timing-function: ease-out;
+  }
+  95% {
+    transform: translateY(-5px);
+    animation-timing-function: ease-in;
+  }
+  100% {
+    transform: translateY(0);
+    animation-timing-function: ease-out;
   }
 }
 
@@ -485,6 +577,11 @@ h2 {
     margin-bottom: 79px;
     padding-top: 49px;
 
+    &-border {
+      opacity: 0;
+      transform: translateY(-200px);
+    }
+
     &-block {
       border: 2px dotted rgba(224, 227, 235, 1);
       border-radius: 4px;
@@ -505,12 +602,60 @@ h2 {
       }
     }
   }
+
+  & .animated {
+    .reputation-body-border {
+      animation: slideRight 1s 1s forwards;
+      &:first-child {
+        animation: dropDown 1s forwards;
+      }
+      &:last-child {
+        animation: slideRight 1s 2s forwards;
+      }
+    }
+  }
+}
+
+@keyframes dropDown {
+  0% {
+    opacity: 0;
+    transform: translateY(-100px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideRight {
+  0% {
+    opacity: 0;
+    transform: translateX(-100px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
 @media (max-width: 768px) {
   .reputation {
     &-body {
       padding-top: 80px;
+      &-block {
+        margin-bottom: 20px;
+      }
+    }
+    & .animated {
+      .reputation-body-border {
+        animation: dropDown 1s 1s forwards;
+        &:first-child {
+          animation: dropDown 1s forwards;
+        }
+        &:last-child {
+          animation: dropDown 1s 2s forwards;
+        }
+      }
     }
   }
 }
@@ -535,6 +680,25 @@ h2 {
     justify-content: space-between;
     &-frame {
       height: 375px;
+      opacity: 0;
+      transform: translateY(-300px);
+    }
+  }
+
+  & .animated {
+    .choose-cameras-frame {
+      &:first-child {
+        animation: dropDownCameras 1s forwards;
+      }
+      &:nth-child(2) {
+        animation: dropDownCameras 1s 0.5s forwards;
+      }
+      &:nth-child(3) {
+        animation: dropDownCameras 1s 1s forwards;
+      }
+      &:last-child {
+        animation: dropDownCameras 1s 1.5s forwards;
+      }
     }
   }
 
@@ -556,6 +720,17 @@ h2 {
         }
       }
     }
+  }
+}
+
+@keyframes dropDownCameras {
+  0% {
+    opacity: 0;
+    transform: translateY(-300px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
@@ -607,7 +782,15 @@ h2 {
         color: $mainText;
 
         & .arrow {
-          transition: padding 0.3s;
+          opacity: 0;
+          transition: transform opacity 1s padding 0.3s;
+          transform: translateX(200px);
+        }
+
+        & .animated {
+          transition: all 1s;
+          transform: translateX(0);
+          opacity: 1;
         }
 
         &:hover {
@@ -621,12 +804,19 @@ h2 {
         width: 211px;
         text-align: center;
         text-decoration: none;
-        color: $mainText;
+        background-color: $mainText;
+        color: white;
         padding: 16px 40px;
         border: 1px solid;
         border-radius: 5px;
 
         transition: all 0.5s;
+        &.animated {
+          transition: all 1s;
+          color: $mainText;
+          background-color: rgba(244, 244, 244, 1);
+        }
+
         &:hover {
           background-color: $mainText;
           color: white;
@@ -641,6 +831,14 @@ h2 {
     background-color: white;
     &-content {
       flex-direction: column;
+
+      &-text {
+        &-button {
+          &.animated {
+            background-color: white;
+          }
+        }
+      }
 
       &-image {
         margin: 0;
@@ -696,6 +894,17 @@ h2 {
       & img {
         position: absolute;
       }
+
+      &:nth-child(odd) {
+        display: none;
+        opacity: 0;
+        transform: translateX(200px);
+      }
+      &:nth-child(even) {
+        display: none;
+        opacity: 0;
+        transform: translateX(-200px);
+      }
     }
 
     & .clients {
@@ -746,12 +955,58 @@ h2 {
     }
     &-pink {
       color: $pink;
+      transition: all 1s;
+      opacity: 0;
     }
     & p {
       font-size: 20px;
       color: rgba(82, 91, 122, 1);
       margin-bottom: 80px;
     }
+    & .animated {
+      opacity: 1;
+      transition: all 1s;
+    }
+  }
+
+  & .animated {
+    .experience-left-card {
+      display: block;
+      &:first-child {
+        animation: rightCard 1s forwards;
+      }
+      &:nth-child(2) {
+        animation: leftCard 1s 0.5s forwards;
+      }
+      &:nth-child(3) {
+        animation: rightCard 1s 1s forwards;
+      }
+      &:last-child {
+        animation: leftCard 1s 1.5s forwards;
+      }
+    }
+  }
+}
+
+@keyframes rightCard {
+  0% {
+    transform: translateX(200px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes leftCard {
+  0% {
+    transform: translateX(-200px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
   }
 }
 
