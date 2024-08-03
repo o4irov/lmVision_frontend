@@ -351,7 +351,6 @@ export default {
     },
     handleScroll() {
       this.scrollY = window.scrollY;
-      console.log(this.scrollY);
     },
     isScrolled(desktop, mobile) {
       if (this.scrolls.has(desktop)) {
@@ -472,7 +471,7 @@ h2 {
     display: flex;
     flex-direction: column;
     justify-content: end;
-    padding-bottom: 100px;
+    padding-bottom: 170px;
     color: $mainText;
     h1 {
       font-size: 64px;
