@@ -76,7 +76,7 @@
     &-forms {
       & input,
       textarea {
-        width: 40%;
+        width: 45%;
         margin-bottom: 20px;
         margin-right: 5%;
         padding: 10px;
@@ -86,10 +86,14 @@
           font-size: 18px;
           color: rgba(166, 166, 171, 1);
         }
+
+        &:last-child {
+          margin-right: 0;
+        }
       }
 
       & .message {
-        width: 85%;
+        width: 95%;
         height: 210px;
         resize: none;
       }
@@ -107,6 +111,16 @@
 
 @media (max-width: 768px) {
   .form {
+    &-right {
+      &-forms {
+        & input,
+        textarea {
+          &::placeholder {
+            font-size: 14px;
+          }
+        }
+      }
+    }
   }
 }
 </style>

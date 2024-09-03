@@ -4,8 +4,8 @@
     <div class="mainBlock row">
       <div class="mainBlock-text col-md-6 col-12">
         <h1>
-          <span class="mainBlock-text-pink">LM</span> Video <br />
-          Solutions<span class="mainBlock-text-pink point">.</span>
+          <span class="pink">LM</span> Video <br />
+          Solutions<span class="pink point">.</span>
         </h1>
         <div class="row">
           <p class="col-sm-8">
@@ -13,7 +13,7 @@
             безопасность. Ваша безопасность - наша единственная цель.
           </p>
         </div>
-        <router-link :to="'/contacts'" class="pinkButton">Выбрать камеру</router-link>
+        <router-link :to="'/catalog'" class="pinkButton">Выбрать камеру</router-link>
       </div>
       <div class="mainBlock-mobileImg">
         <img src="@/assets/img/mobileMainCamera.png" alt="main camera" />
@@ -179,7 +179,9 @@
           работы
         </h1>
         <p>Мы там то, мы там сё, жыли были, тили тили трали вали</p>
-        <router-link :to="'/form'" class="pinkButton">Оставить заявку</router-link>
+        <router-link :to="'/contacts'" class="pinkButton"
+          >Оставить заявку</router-link
+        >
       </div>
     </div>
   </div>
@@ -424,6 +426,10 @@ h2 {
   font-size: 40px !important;
 }
 
+.pink {
+  color: $pink;
+}
+
 .pinkButton {
   display: flex;
   justify-content: center;
@@ -482,15 +488,15 @@ h2 {
     p {
       font-size: 18px;
     }
-
-    & .point {
-      display: inline-block;
-      animation: jump 3s forwards;
-    }
   }
   &-mobileImg {
     display: none;
   }
+}
+
+.point {
+  display: inline-block;
+  animation: jump 3s forwards;
 }
 
 @keyframes jump {

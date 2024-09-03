@@ -17,11 +17,11 @@
     "@fortawesome/free-regular-svg-icons": "^6.6.0",
     "@fortawesome/free-solid-svg-icons": "^6.6.0",
     "@fortawesome/vue-fontawesome": "^3.0.8",
-    "axios": "^1.7.2",
+    "axios": "^1.7.4",
     "bootstrap": "^5.3.3",
     "bootstrap-vue": "^2.23.1",
     "core-js": "^3.6.5",
-    "swiper": "^11.1.6",
+    "lm_vision_solutions": "file:",
     "vue": "^3.4.27",
     "vue-cli-service": "^5.0.10",
     "vue-router": "^4.4.0"

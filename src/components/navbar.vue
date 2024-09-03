@@ -1,6 +1,6 @@
 <template>
   <nav :class="navClasses">
-    <div class="container d-flex justify-content-between align-items-center">
+    <div class="container nav">
       <a href="/" class="logo">
         <div class="image"><img src="@/assets/img/logo.png" /></div>
         <div class="name">
@@ -19,13 +19,9 @@
           :key="page['path']"
           :class="{ active: currentPage === page }"
         >
-          <router-link
-            :to="'/' + page['path']"
-            class="link"
-            style="color: black"
-            @click="closeMenu"
-            >{{ page["name"] }}</router-link
-          >
+          <router-link :to="'/' + page['path']" class="link" @click="closeMenu">{{
+            page["name"]
+          }}</router-link>
         </li>
       </ul>
     </div>
@@ -106,6 +102,12 @@ nav {
   padding: 1rem;
   transition: all 0.3s ease-in-out;
 }
+.nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
 .nav-transparent {
   background: rgba(167, 167, 167, 0.216);
   backdrop-filter: blur(10px);
@@ -125,6 +127,7 @@ nav {
   font-weight: 400;
   font-size: 18px;
   line-height: 25px;
+  color: black;
 }
 .nav-links li {
   display: inline-block;
@@ -139,6 +142,11 @@ nav {
   background: black;
   transition: 300ms;
 }
+
+.nav-links-after::after {
+  background: white !important;
+}
+
 .nav-links li:hover::after {
   width: 100%;
 }
