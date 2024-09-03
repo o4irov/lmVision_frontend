@@ -14,10 +14,10 @@
   <div class="container">
     <div class="delivery">
       <div class="delivery-title">
-        <h2>Доставка<span class="pink">.</span></h2>
+        <h2 :class="isScrolled(0, 0)">Доставка<span class="pink">.</span></h2>
       </div>
       <div class="delivery-text row">
-        <p class="delivery-text col-sm-10 col-12">
+        <p class="delivery-text col-sm-10 col-12" :class="isScrolled(100, 100)">
           Мы предлагаем быструю и удобную доставку камер видеонаблюдения и их
           коплектующих, обеспечивая их надежную перевозку и транспортировку. Вы можете
           выбрать наиболее подходящий для вас способ доставки во время создания заказа или
@@ -26,24 +26,41 @@
       </div>
       <div class="delivery-variants row">
         <div class="delivery-variants-left col-sm-4">
-          <img src="../assets/img/courier.png" alt="courier" class="courier" />
-          <img src="../assets/img/truck.png" alt="truck" class="truck" />
-          <img src="../assets/img/pickup.png" alt="pickup" class="pickup" />
+          <img
+            src="../assets/img/courier.png"
+            alt="courier"
+            class="courier"
+            :class="isScrolled(200, 200)"
+          />
+          <img
+            src="../assets/img/truck.png"
+            alt="truck"
+            class="truck"
+            :class="isScrolled(200, 200)"
+          />
+          <img
+            src="../assets/img/pickup.png"
+            alt="pickup"
+            class="pickup"
+            :class="isScrolled(200, 200)"
+          />
         </div>
         <div class="delivery-variants-right col-sm-8 col-12">
-          <h2>Варианты доставки<span class="pink"></span></h2>
+          <h2 :class="isScrolled(200, 300)">
+            Варианты доставки<span class="pink"></span>
+          </h2>
           <div class="delivery-variants-right-list">
-            <p>
+            <p :class="isScrolled(200, 400)">
               <span class="pink">1</span>Курьерская доставка – для жителей крупных городов
               доступна услуга курьерской доставки, при которой вы получите ваш заказ
               непосредственно на дом или в офис.
             </p>
-            <p>
+            <p :class="isScrolled(200, 700)">
               <span class="pink">2</span>Доставка через транспортные компании – для
               доставки в регионы мы сотрудничаем с надежными транспортными компаниями,
               которые обеспечивают безопасную и своевременную перевозку оборудования.
             </p>
-            <p>
+            <p :class="isScrolled(200, 1000)">
               <span class="pink">3</span>Самовывоз – вы можете самостоятельно забрать ваш
               заказ с нашего склада, предварительно согласовав время.
             </p>
@@ -52,7 +69,13 @@
       </div>
       <div class="delivery-questions row">
         <div class="delivery-questions-left col-sm-8 col-12">
-          <h2>Остались вопросы по доставке<span class="pink">?</span></h2>
+          <h2>
+            Остались вопросы по доставке<span
+              class="pink question"
+              :class="isScrolled(800, 1200)"
+              >?</span
+            >
+          </h2>
           <p>
             Если у вас остались вопросы по поводу доставки и транспортировки товара в ваш
             регион - напишите нам или оставьте свои контакты, и мы с вами свяжемся!
@@ -69,21 +92,25 @@
     <div class="payment row">
       <div class="payment-block col-sm-9 col-12">
         <h2>Оплата<span class="pink">.</span></h2>
-        <p>
-          Для вашего удобства, оплата заказов в LM Video производится вне сайта. Вы можете
+        <p :class="isScrolled(1200, 1700)">
+          <p>
+            Для вашего удобства, оплата заказов в LM Video производится вне сайта. Вы можете
           оплатить ваш заказ посредством банковского перевода при создании заявки.
+          </p>
           <br /><br />
-          Также возможен вариант оплаты напрямую при самовывозе или при выполнении услуг
+          <p>
+            Также возможен вариант оплаты напрямую при самовывозе или при выполнении услуг
           на вашем объекте. Такой подход позволяет нам обеспечить максимальную
           безопасность и прозрачность каждой транзакции, а также предоставить вам гибкость
-          в выборе наиболее удобного способа оплаты.
+          в выборе наиболее удобного способа оплаты.</p>
           <br /><br />
-          Если вы хотите произвести дистанционную оплату за товар или услугу, мы
+          <p>
+            Если вы хотите произвести дистанционную оплату за товар или услугу, мы
           идивидуально вышлем вам счёт на оплату. Вы можете выбрать наиболее удобный для
-          вас способ - получить счет по электронной почте или через мессенджер.
+          вас способ - получить счет по электронной почте или через мессенджер.</p>
         </p>
       </div>
-      <img src="../assets/img/payment.png" alt="payment" />
+      <img src="../assets/img/payment.png" alt="payment" :class="isScrolled(1300, 0)" />
     </div>
   </div>
 </template>
@@ -91,10 +118,35 @@
 <script>
 export default {
   data() {
-    return {};
+    return {
+      scrollY: 0,
+      scrolls: new Set(),
+    };
   },
   computed: {},
-  methods: {},
+  methods: {
+    handleScroll() {
+      this.scrollY = window.scrollY;
+      console.log(this.scrollY);
+    },
+    isScrolled(desktop, mobile) {
+      if (this.scrolls.has(desktop)) {
+        return { animated: true };
+      }
+
+      var isAnimate = this.scrollY > (window.innerWidth >= 768 ? desktop : mobile);
+      if (isAnimate) {
+        this.scrolls.add(desktop);
+      }
+      return { animated: isAnimate };
+    },
+  },
+  created() {
+    window.addEventListener("scroll", this.handleScroll);
+  },
+  unmounted() {
+    window.removeEventListener("scroll", this.handleScroll);
+  },
   mounted() {},
 };
 </script>
@@ -108,14 +160,34 @@ $mainText: rgba(66, 70, 73, 1);
 .delivery {
   &-title {
     margin-bottom: 45px;
+
     & h2 {
       font-size: 40px;
+
+      opacity: 0;
+      transform: translateY(-100px);
+      transition: all 1s ease-in-out;
+
+      &.animated {
+        opacity: 1;
+        transform: none;
+      }
     }
   }
   &-text {
     margin-bottom: 20px;
     & p {
       font-size: 18px !important;
+
+      opacity: 0;
+      transform: translateY(-100px);
+      transition: all 1s ease-in-out;
+      transition-delay: 0.3s;
+
+      &.animated {
+        opacity: 1;
+        transform: none;
+      }
     }
   }
 
@@ -128,6 +200,16 @@ $mainText: rgba(66, 70, 73, 1);
 
       & img {
         width: 150px;
+
+        opacity: 0;
+        transform: translateX(-100px);
+        transition: all 1s ease-in-out;
+        transition-delay: 1s;
+
+        &.animated {
+          opacity: 1;
+          transform: none;
+        }
       }
 
       & .courier {
@@ -137,10 +219,14 @@ $mainText: rgba(66, 70, 73, 1);
       & .truck {
         margin-top: -20px;
         margin-left: 150px;
+
+        transition-delay: 1.5s;
       }
       & .pickup {
         margin-top: -50px;
         margin-left: -50px;
+
+        transition-delay: 2s;
       }
     }
     &-right {
@@ -148,11 +234,40 @@ $mainText: rgba(66, 70, 73, 1);
         font-size: 32px;
         font-weight: 500 !important;
         margin-bottom: 20px;
+
+        opacity: 0;
+        transform: translateY(-100px);
+        transition: all 1s ease-in-out;
+        transition-delay: 0.5s;
+
+        &.animated {
+          opacity: 1;
+          transform: none;
+        }
       }
       &-list {
         & p {
           font-size: 18px !important;
           font-weight: 500 !important;
+
+          opacity: 0;
+          transform: translateX(100px);
+          transition: all 1s ease-in-out;
+          transition-delay: 1.5s;
+
+          &.animated {
+            opacity: 1;
+            transform: none;
+          }
+
+          &:first-child {
+            transition-delay: 1s;
+          }
+
+          &:last-child {
+            transition-delay: 2s;
+          }
+
           & .pink {
             font-size: 32px;
           }
@@ -169,6 +284,16 @@ $mainText: rgba(66, 70, 73, 1);
       justify-content: space-between;
       & h2 {
         max-width: 90%;
+
+        & span {
+          display: inline-block;
+          transition: all 1s;
+          transform: rotate(180deg) translateX(10px) translateY(-30px);
+
+          &.animated {
+            transform: none;
+          }
+        }
       }
       &-link {
         display: inline;
@@ -236,12 +361,42 @@ $mainText: rgba(66, 70, 73, 1);
     & h2 {
       margin-bottom: 36px;
     }
+
+    & p {
+      &.animated {
+          & p{
+            opacity: 1;
+          transform: none;
+          }
+        }
+      & p{
+        opacity: 0;
+        transform: translateY(-100px);
+        transition: all 1s ease-in-out;
+        transition-delay: 1s;
+
+        &:first-child{
+          transition-delay: 0.5s;
+        }
+        &:last-child{
+          transition-delay: 1.5s;
+        }
+      }
+    }
   }
   & img {
     width: 347px;
     position: absolute;
     right: 0;
     bottom: 0;
+
+    opacity: 0;
+        transform: translateX(100px);
+        transition: all 1s ease-in-out;
+        &.animated {
+          opacity: 1;
+          transform: none;
+        }
   }
 }
 

@@ -27,6 +27,7 @@ export default {
 body {
   background-color: #ffffff !important;
   scroll-behavior: smooth;
+  overflow-x: hidden;
 }
 
 #app {

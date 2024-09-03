@@ -139,26 +139,26 @@ export default {
   },
   computed: {},
   methods: {},
-  mounted() {
-    const nav = document.querySelectorAll(".link");
-    nav.forEach((element) => {
-      element.style.color = "white";
-    });
+  // mounted() {
+  //   const nav = document.querySelectorAll(".link");
+  //   nav.forEach((element) => {
+  //     element.style.color = "white";
+  //   });
 
-    document.querySelectorAll(".nav-links li").forEach((link) => {
-      link.classList.add("nav-links-after");
-    });
-  },
-  beforeUnmount() {
-    const nav = document.querySelectorAll(".link");
-    nav.forEach((element) => {
-      element.style.color = "black";
-    });
+  //   document.querySelectorAll(".nav-links li").forEach((link) => {
+  //     link.classList.add("nav-links-after");
+  //   });
+  // },
+  // beforeUnmount() {
+  //   const nav = document.querySelectorAll(".link");
+  //   nav.forEach((element) => {
+  //     element.style.color = "black";
+  //   });
 
-    document.querySelectorAll(".nav-links li").forEach((link) => {
-      link.classList.remove("nav-links-after");
-    });
-  },
+  //   document.querySelectorAll(".nav-links li").forEach((link) => {
+  //     link.classList.remove("nav-links-after");
+  //   });
+  // },
 };
 </script>
 

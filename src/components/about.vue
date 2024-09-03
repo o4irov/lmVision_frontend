@@ -15,31 +15,42 @@
   <div class="container">
     <div class="oneDirection">
       <div class="oneDirection-title row">
-        <h2 class="col-sm-6 col-12">Мы смотрим в одном направлении с нашими клиентами</h2>
+        <h2 :class="isScrolled(0, 0)" class="col-sm-6 col-12">
+          Мы смотрим в одном направлении с нашими клиентами
+        </h2>
       </div>
       <div class="oneDirection-example row">
-        <div class="oneDirection-example-text col-sm-5 col-12">
+        <div
+          class="oneDirection-example-text col-sm-5 col-12"
+          :class="isScrolled(500, 400)"
+        >
           Установка камеры в чатном доме
           <br />
           Иркутск. 2023
         </div>
         <div class="oneDirection-example-image col-sm-7 col-12">
-          <img src="../assets/img/oneDirection.png" alt="montage" />
+          <img
+            src="../assets/img/oneDirection.png"
+            :class="isScrolled(500, 200)"
+            alt="montage"
+          />
         </div>
       </div>
-      <div class="one-direction-text row">
-        <p class="col-sm-10 col-12">
-          В LM Vision мы уверены, что обеспечение безопасности и удобства наших клиентов -
+      <div class="oneDirection-text row">
+        <p class="col-sm-10 col-12" :class="isScrolled(850, 700)">
+          <p>В LM Vision мы уверены, что обеспечение безопасности и удобства наших клиентов -
           это главное. Мы постоянно ищем инновационные решения в области систем
-          видеонаблюдения, чтобы создавать безопасное и защищенное будущее.
+          видеонаблюдения, чтобы создавать безопасное и защищенное будущее.</p>
           <br />
           <br />
-          Наше стремление к инновациям побуждает нас постоянно исследовать новые
+          <p>
+            Наше стремление к инновациям побуждает нас постоянно исследовать новые
           направления, совершенствовать наши процессы и предлагать передовые результаты
           для наших клиентов. Мы стремимся гарантировать, что наши решения всегда
           предоставляют максимальный комфорт и уверенность в безопасности. Присоединяйтесь
           к нам в принятии инноваций, чтобы вместе идти к более безопасному и комфортному
           миру.
+          </p>
         </p>
       </div>
     </div>
@@ -50,8 +61,8 @@
     </div>
     <div class="security row">
       <div class="security-left col-sm-4">
-        <img src="../assets/img/lock.png" alt="lock" class="lock" />
-        <img src="../assets/img/shield.png" alt="shield" class="shield" />
+        <img src="../assets/img/lock.png" alt="lock" class="lock" :class="isScrolled(1900, 700)" />
+        <img src="../assets/img/shield.png" alt="shield" class="shield" :class="isScrolled(1900, 700)" />
       </div>
       <div class="security-right col-sm-8 col-12">
         <p>
@@ -69,9 +80,9 @@
     <div class="usage">
       <div class="usage-example row">
         <div class="usage-example-image col-sm-8 col-12">
-          <img src="../assets/img/usage.png" alt="usage" />
+          <img src="../assets/img/usage.png" alt="usage" :class="isScrolled(2400, 2000)"/>
         </div>
-        <div class="usage-example-text col-sm-4 col-12">
+        <div class="usage-example-text col-sm-4 col-12" :class="isScrolled(2400, 2200)">
           Принцип работы камеры на WiFi
         </div>
       </div>
@@ -92,10 +103,35 @@
 <script>
 export default {
   data() {
-    return {};
+    return {
+      scrollY: 0,
+      scrolls: new Set(),
+    };
   },
   computed: {},
-  methods: {},
+  methods: {
+    handleScroll() {
+      this.scrollY = window.scrollY;
+      console.log(this.scrollY);
+    },
+    isScrolled(desktop, mobile) {
+      if (this.scrolls.has(desktop)) {
+        return { animated: true };
+      }
+
+      var isAnimate = this.scrollY > (window.innerWidth >= 768 ? desktop : mobile);
+      if (isAnimate) {
+        this.scrolls.add(desktop);
+      }
+      return { animated: isAnimate };
+    },
+  },
+  created() {
+    window.addEventListener("scroll", this.handleScroll);
+  },
+  unmounted() {
+    window.removeEventListener("scroll", this.handleScroll);
+  },
   mounted() {},
 };
 </script>
@@ -157,6 +193,15 @@ h2 {
   &-title {
     & h2 {
       font-size: 40px !important;
+
+      opacity: 0;
+      transform: translateX(-100px);
+      transition: all 1s;
+
+      &.animated {
+        opacity: 1;
+        transform: none;
+      }
     }
   }
 
@@ -168,11 +213,51 @@ h2 {
     &-text {
       color: rgba(166, 166, 171, 1);
       text-align: right;
+
+      opacity: 0;
+      transform: translateX(100px);
+      transition: all 1s;
+      transition-delay: 0.5s;
+
+      &.animated {
+        opacity: 1;
+        transform: none;
+      }
     }
 
     &-image {
       & img {
         max-width: 100%;
+
+        opacity: 0;
+        transform: translateX(-100px);
+        transition: all 1s;
+
+        &.animated {
+          opacity: 1;
+          transform: none;
+        }
+      }
+    }
+  }
+
+  &-text {
+    & p {
+      & p {
+        opacity: 0;
+        transform: translateY(-100px);
+        transition: all 0.5s;
+      }
+
+      &.animated {
+        & p {
+          opacity: 1;
+          transform: none;
+
+          &:last-child{
+            transition-delay: 0.5s;
+          }
+        }
       }
     }
   }
@@ -189,6 +274,10 @@ h2 {
     &-example {
       display: flex;
       flex-direction: column-reverse;
+
+      &-text {
+        transition-delay: 0;
+      }
 
       &-image {
         margin-bottom: 40px;
@@ -235,13 +324,28 @@ h2 {
   margin-bottom: 50px;
   &-left {
     position: relative;
+    
     & img {
       position: absolute;
       height: 230px;
 
+      opacity: 0;
+      transition: all 1s;
+
+      &:first-child{
+        transform: translateX(-100px);
+      }
+
       &:last-child {
         right: 0;
         bottom: 0;
+
+        transform: translateX(100px);
+      }
+
+      &.animated {
+        opacity: 1;
+        transform: none;
       }
     }
   }
@@ -269,6 +373,15 @@ h2 {
     &-image {
       & img {
         max-width: 100%;
+
+        opacity: 0;
+        transform: translateX(100px);
+        transition: all 1s;
+
+        &.animated {
+          opacity: 1;
+          transform: none;
+        }
       }
     }
     &-text {
@@ -276,6 +389,16 @@ h2 {
       align-items: end;
       color: rgba(166, 166, 171, 1);
       font-size: 14px;
+
+      opacity: 0;
+        transform: translateX(-100px);
+        transition: all 1s;
+        transition-delay: 0.5s;
+
+        &.animated {
+          opacity: 1;
+          transform: none;
+        }
     }
   }
 }
@@ -291,6 +414,8 @@ h2 {
       &-text {
         display: flex;
         justify-content: end;
+
+        transition-delay: 0;
       }
     }
   }

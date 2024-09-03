@@ -143,10 +143,6 @@ nav {
   transition: 300ms;
 }
 
-.nav-links-after::after {
-  background: white !important;
-}
-
 .nav-links li:hover::after {
   width: 100%;
 }
@@ -169,6 +165,9 @@ ul {
 }
 .nav-links li {
   cursor: pointer;
+  & .link {
+    color: black;
+  }
 }
 .nav-links li.active #link {
   font-weight: bold;

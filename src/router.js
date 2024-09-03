@@ -69,7 +69,13 @@ const routes = [
 
 const router = createRouter({
   history: createWebHistory(), // указываем, что будет создаваться история посещений веб-страниц
-  routes, // подключаем маршрутизацию
+  routes,
+  scrollBehavior(to, from, savedPosition) {
+
+    // Если нет сохраненной позиции, прокручиваем вверх
+    return { x: 0, y: 0, };
+
+  } // подключаем маршрутизацию
 });
 
 
