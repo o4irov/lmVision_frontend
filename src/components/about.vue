@@ -112,7 +112,6 @@ export default {
   methods: {
     handleScroll() {
       this.scrollY = window.scrollY;
-      console.log(this.scrollY);
     },
     isScrolled(desktop, mobile) {
       if (this.scrolls.has(desktop)) {

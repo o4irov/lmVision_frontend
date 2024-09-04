@@ -13,7 +13,8 @@
             безопасность. Ваша безопасность - наша единственная цель.
           </p>
         </div>
-        <router-link :to="'/catalog'" class="pinkButton">Выбрать камеру</router-link>
+        <!-- <router-link :to="'/catalog'" class="pinkButton">Выбрать камеру</router-link> -->
+        <a :href="'/catalog'" class="pinkButton"> Выбрать камеру</a>
       </div>
       <div class="mainBlock-mobileImg">
         <img src="@/assets/img/mobileMainCamera.png" alt="main camera" />
@@ -110,19 +111,33 @@
             инновационность. Мы стремимся к тому, чтобы каждое наше решение способствовало
             созданию безопасного и технологически продвинутого будущего.
           </p>
-          <router-link :to="'/about'" class="about-content-text-link">
+          <!-- <router-link :to="'/about'" class="about-content-text-link">
             Читать далее &nbsp;<i
               :class="isScrolled(1900, 3900)"
               class="fa-solid fa-arrow-right arrow"
             ></i>
-          </router-link>
-          <router-link
+          </router-link> -->
+          <a :href="'/about'" class="about-content-text-link">
+            Читать далее &nbsp;<i
+              :class="isScrolled(1900, 3900)"
+              class="fa-solid fa-arrow-right arrow"
+            ></i
+          ></a>
+
+          <!-- <router-link
             :class="isScrolled(1900, 3900)"
             :to="'/portfolio'"
             class="about-content-text-button"
           >
             портфолио
-          </router-link>
+          </router-link> -->
+          <a
+            :href="'/portfolio'"
+            class="about-content-text-button"
+            :class="isScrolled(1900, 3900)"
+          >
+            портфолио</a
+          >
         </div>
       </div>
     </div>
@@ -179,9 +194,8 @@
           работы
         </h1>
         <p>Мы там то, мы там сё, жыли были, тили тили трали вали</p>
-        <router-link :to="'/contacts'" class="pinkButton"
-          >Оставить заявку</router-link
-        >
+        <!-- <router-link :to="'/contacts'" class="pinkButton">Оставить заявку</router-link> -->
+        <a :href="'/contacts'" class="pinkButton"> Оставить заявку</a>
       </div>
     </div>
   </div>

@@ -15,31 +15,31 @@
   <div class="container">
     <div class="projects row">
       <div class="projects-left col-sm-9">
-        <h2>
+        <h2 :class="isScrolled(0, 0)">
           В нашем портфолио представлены успешно завершённые проекты наших клиентов.
         </h2>
-        <p>
+        <p :class="isScrolled(0, 100)">
           Мы используем только проверенное оборудование ведущих мировых производителей,
           что гарантирует надёжность и долгий срок службы наших систем. Доверяя нам, вы
           выбираете безопасность и уверенность в завтрашнем дне.
         </p>
       </div>
       <div class="projects-right col-sm-3">
-        <img src="@/assets/img/trophy.png" alt="trophy" />
-        <img src="@/assets/img/target.png" alt="target" />
+        <img src="@/assets/img/trophy.png" alt="trophy" :class="isScrolled(100, 0)" />
+        <img src="@/assets/img/target.png" alt="target" :class="isScrolled(100, 0)" />
       </div>
       <div class="projects-pluses">
         <div class="projects-pluses-item">
-          <img src="@/assets/img/tech.png" alt="" />
-          Технологии
+          <img src="@/assets/img/tech.png" alt="" :class="isScrolled(200, 300)" />
+          <p :class="isScrolled(200, 300)">Технологии</p>
         </div>
         <div class="projects-pluses-item">
-          <img src="@/assets/img/reliability.png" alt="" />
-          Надёжность
+          <img src="@/assets/img/reliability.png" alt="" :class="isScrolled(200, 350)" />
+          <p :class="isScrolled(200, 350)">Надёжность</p>
         </div>
         <div class="projects-pluses-item">
-          <img src="@/assets/img/comfortIcon.png" alt="" />
-          Удобство
+          <img src="@/assets/img/comfortIcon.png" alt="" :class="isScrolled(200, 400)" />
+          <p :class="isScrolled(200, 400)">Удобство</p>
         </div>
       </div>
     </div>
@@ -67,16 +67,25 @@
   <div class="container">
     <div class="howItWorks row">
       <div class="howItWorks-left col-sm-8 col-12">
-        <h2>Как работают наши камеры<span class="pink">?</span></h2>
+        <h2>
+          Как работают наши камеры<span
+            class="pink question"
+            :class="isScrolled(1700, 1200)"
+            >?</span
+          >
+        </h2>
         <p>
           Посмотрите на реальные примеры, чтобы убедиться в высоком качестве работы наших
           камер. Наша галерея проектов наглядно демонстрирует эффективность и надёжность
           установленных систем видеонаблюдения. Каждое изображение и видео подтверждают
           превосходное качество съёмки и стабильную работу оборудования.
         </p>
-        <router-link :to="'/catalog'" class="howItWorks-left-link">
+        <!-- <router-link :to="'/catalog'" class="howItWorks-left-link">
           Посмотреть камеры&nbsp;<i class="fa-solid fa-arrow-right arrow animated"></i>
-        </router-link>
+        </router-link> -->
+        <a :href="'/catalog'" class="howItWorks-left-link">
+          Посмотреть камеры&nbsp;<i class="fa-solid fa-arrow-right arrow animated"></i
+        ></a>
       </div>
       <div class="howItWorks-right col-sm-4">
         <img src="@/assets/img/howItWorks.png" alt="delivery" />
@@ -97,6 +106,8 @@ export default {
   },
   data() {
     return {
+      scrollY: 0,
+      scrolls: new Set(),
       portfolioItems: [
         {
           id: 1,
@@ -138,27 +149,28 @@ export default {
     };
   },
   computed: {},
-  methods: {},
-  // mounted() {
-  //   const nav = document.querySelectorAll(".link");
-  //   nav.forEach((element) => {
-  //     element.style.color = "white";
-  //   });
+  methods: {
+    handleScroll() {
+      this.scrollY = window.scrollY;
+    },
+    isScrolled(desktop, mobile) {
+      if (this.scrolls.has(desktop)) {
+        return { animated: true };
+      }
 
-  //   document.querySelectorAll(".nav-links li").forEach((link) => {
-  //     link.classList.add("nav-links-after");
-  //   });
-  // },
-  // beforeUnmount() {
-  //   const nav = document.querySelectorAll(".link");
-  //   nav.forEach((element) => {
-  //     element.style.color = "black";
-  //   });
-
-  //   document.querySelectorAll(".nav-links li").forEach((link) => {
-  //     link.classList.remove("nav-links-after");
-  //   });
-  // },
+      var isAnimate = this.scrollY > (window.innerWidth >= 768 ? desktop : mobile);
+      if (isAnimate) {
+        this.scrolls.add(desktop);
+      }
+      return { animated: isAnimate };
+    },
+  },
+  created() {
+    window.addEventListener("scroll", this.handleScroll);
+  },
+  unmounted() {
+    window.removeEventListener("scroll", this.handleScroll);
+  },
 };
 </script>
 
@@ -207,6 +219,28 @@ $mainText: rgba(66, 70, 73, 1);
 .projects {
   margin-bottom: 93px;
   &-left {
+    & h2 {
+      opacity: 0;
+      transform: translateX(-100px);
+      transition: all 1s ease-in-out;
+
+      &.animated {
+        opacity: 1;
+        transform: none;
+      }
+    }
+
+    & p {
+      opacity: 0;
+      transform: translateY(-100px);
+      transition: all 1s ease-in-out;
+      transition-delay: 0.5s;
+
+      &.animated {
+        opacity: 1;
+        transform: none;
+      }
+    }
   }
   &-right {
     position: relative;
@@ -216,12 +250,32 @@ $mainText: rgba(66, 70, 73, 1);
         width: 220px;
         top: -50px;
         left: 0;
+
+        opacity: 0;
+        transform: translateX(-100px);
+        transition: all 1s ease-in-out;
+        transition-delay: 0.5s;
+
+        &.animated {
+          opacity: 1;
+          transform: none;
+        }
       }
 
       &:last-child {
         width: 175px;
         right: 0;
         bottom: -30px;
+
+        opacity: 0;
+        transform: translateX(100px);
+        transition: all 1s ease-in-out;
+        transition-delay: 0.5s;
+
+        &.animated {
+          opacity: 1;
+          transform: none;
+        }
       }
     }
   }
@@ -236,6 +290,43 @@ $mainText: rgba(66, 70, 73, 1);
 
       & img {
         margin-right: 32px;
+
+        opacity: 0;
+        transform: translateY(-100px);
+        transition: all 1s ease-in-out;
+        transition-delay: 1.5s;
+
+        &.animated {
+          opacity: 1;
+          transform: none;
+        }
+      }
+
+      &:first-child {
+        & img,
+        p {
+          transition-delay: 1s;
+        }
+      }
+      &:last-child {
+        & img,
+        p {
+          transition-delay: 2s;
+        }
+      }
+
+      & p {
+        display: inline-block;
+
+        opacity: 0;
+        transform: translateY(100px);
+        transition: all 1s ease-in-out;
+        transition-delay: 1.5s;
+
+        &.animated {
+          opacity: 1;
+          transform: none;
+        }
       }
     }
   }
@@ -256,6 +347,10 @@ $mainText: rgba(66, 70, 73, 1);
         font-size: 24px;
         margin-bottom: 40px;
         margin-right: 0;
+
+        & img {
+          transform: translateX(-100px);
+        }
       }
     }
   }
@@ -311,6 +406,16 @@ $mainText: rgba(66, 70, 73, 1);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+
+    & .question {
+      display: inline-block;
+      transition: all 1s;
+      transform: rotate(180deg) translateX(10px) translateY(-30px);
+
+      &.animated {
+        transform: none;
+      }
+    }
 
     &-link {
       display: inline;

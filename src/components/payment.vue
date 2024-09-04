@@ -80,9 +80,10 @@
             Если у вас остались вопросы по поводу доставки и транспортировки товара в ваш
             регион - напишите нам или оставьте свои контакты, и мы с вами свяжемся!
           </p>
-          <router-link :to="'/contacts'" class="delivery-questions-left-link">
+          <!-- <router-link :to="'/contacts'" class="delivery-questions-left-link">
             Написать нам&nbsp;<i class="fa-solid fa-arrow-right arrow animated"></i>
-          </router-link>
+          </router-link> -->
+          <a :href="'/contacts'" class="delivery-questions-left-link"> Написать нам&nbsp;<i class="fa-solid fa-arrow-right arrow animated"></i></a>
         </div>
         <div class="delivery-questions-right col-sm-4">
           <img src="@/assets/img/delivery.png" alt="delivery" />
@@ -110,7 +111,7 @@
           вас способ - получить счет по электронной почте или через мессенджер.</p>
         </p>
       </div>
-      <img src="../assets/img/payment.png" alt="payment" :class="isScrolled(1300, 0)" />
+      <img src="@/assets/img/payment.png" alt="payment" :class="isScrolled(1300, 0)" />
     </div>
   </div>
 </template>
@@ -127,7 +128,6 @@ export default {
   methods: {
     handleScroll() {
       this.scrollY = window.scrollY;
-      console.log(this.scrollY);
     },
     isScrolled(desktop, mobile) {
       if (this.scrolls.has(desktop)) {
@@ -285,7 +285,7 @@ $mainText: rgba(66, 70, 73, 1);
       & h2 {
         max-width: 90%;
 
-        & span {
+        & .question {
           display: inline-block;
           transition: all 1s;
           transform: rotate(180deg) translateX(10px) translateY(-30px);

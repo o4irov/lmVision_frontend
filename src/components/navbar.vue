@@ -19,9 +19,10 @@
           :key="page['path']"
           :class="{ active: currentPage === page }"
         >
-          <router-link :to="'/' + page['path']" class="link" @click="closeMenu">{{
+          <!-- <router-link :to="'/' + page['path']" class="link" @click="closeMenu">{{
             page["name"]
-          }}</router-link>
+          }}</router-link> -->
+          <a :href="'/' + page['path']" class="link">{{ page["name"] }}</a>
         </li>
       </ul>
     </div>
