@@ -23,6 +23,7 @@
     "bootstrap-vue": "^2.23.1",
     "core-js": "^3.6.5",
     "lm_vision_solutions": "file:",
+    "swiper": "^11.1.14",
     "vue": "^3.4.27",
     "vue-cli-service": "^5.0.10",
     "vue-router": "^4.4.0"
