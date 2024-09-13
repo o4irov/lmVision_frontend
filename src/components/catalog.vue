@@ -5,6 +5,7 @@
         <img src="@/assets/img/search.svg" alt="" />
         <input type="text" placeholder="Поиск" />
       </div>
+      <a href="/cart"><h3>Корзина</h3></a>
       <h3 class="sideMenu-title">Камеры</h3>
       <div class="sideMenu-link" id="forHome">
         <img src="@/assets/img/ipCamera.svg" alt="" /> Для дома
@@ -30,7 +31,12 @@
     </div>
     <div class="catalog col-sm-10">
       <div class="catalog-grid">
-        <ProductCard v-for="product in products" :key="product.id" :product="product" />
+        <ProductCard
+          v-for="product in products"
+          :key="product.id"
+          :product="product"
+          :itemsIds="itemsIds"
+        />
       </div>
     </div>
   </div>
@@ -51,6 +57,7 @@ export default {
           description: "Description 1",
           price: 100,
           image: "@/assets/img/noimage.png",
+          quantity: 1,
         },
         {
           id: 2,
@@ -58,6 +65,7 @@ export default {
           description: "Description 2",
           price: 200,
           image: "@/assets/img/noimage.png",
+          quantity: 1,
         },
         {
           id: 3,
@@ -65,6 +73,7 @@ export default {
           description: "Description 3",
           price: 300,
           image: "@/assets/img/noimage.png",
+          quantity: 1,
         },
         {
           id: 4,
@@ -72,6 +81,7 @@ export default {
           description: "Description 4",
           price: 400,
           image: "@/assets/img/noimage.png",
+          quantity: 1,
         },
         {
           id: 5,
@@ -79,6 +89,7 @@ export default {
           description: "Description 5",
           price: 500,
           image: "@/assets/img/noimage.png",
+          quantity: 1,
         },
         {
           id: 6,
@@ -86,6 +97,7 @@ export default {
           description: "Description 6",
           price: 600,
           image: "@/assets/img/noimage.png",
+          quantity: 1,
         },
         {
           id: 7,
@@ -93,6 +105,7 @@ export default {
           description: "Description 7",
           price: 400,
           image: "@/assets/img/noimage.png",
+          quantity: 1,
         },
         {
           id: 8,
@@ -100,6 +113,7 @@ export default {
           description: "Description 8",
           price: 500,
           image: "@/assets/img/noimage.png",
+          quantity: 1,
         },
         {
           id: 9,
@@ -107,20 +121,58 @@ export default {
           description: "Description 9",
           price: 600,
           image: "@/assets/img/noimage.png",
+          quantity: 1,
         },
         // Добавьте больше товаров для примера
       ],
+      cartItems: [],
+      itemsIds: new Set(),
     };
   },
   computed: {},
-  methods: {},
+  methods: {
+    saveItemsToLocalStorage() {
+      this.cartItems = [];
+      this.itemsIds.forEach((itemId) => {
+        
+      });
+
+      localStorage.setItem("cartItems", JSON.stringify(this.cartItems));
+    },
+    loadItemsFromLocalStorage() {
+      const savedItems = localStorage.getItem("cartItems");
+      if (savedItems) {
+        this.cartItems = JSON.parse(savedItems);
+        this.cartItems.forEach((item) => {
+          this.itemsIds.add(item.id);
+        });
+      }
+    },
+    addItemToCart(item) {
+      this.itemsIds.add(item.id);
+      this.cartItems.push(item);
+    },
+    updateIds(newSet) {
+      this.itemsIds = newSet;
+    },
+  },
   mounted() {
     const container = document.querySelector(".container");
     container.classList.remove("container");
+    const footer = document.querySelector("footer .container");
+    footer.classList.remove("container");
+    footer.classList.add("addPadding");
+
+    this.loadItemsFromLocalStorage();
   },
   beforeUnmount() {
     const container = document.querySelector(".nav");
     container.classList.add("container");
+    const footer = document.querySelector("footer .container");
+    footer.classList.add("container");
+    footer.classList.remove("addPadding");
+
+    this.saveItemsToLocalStorage();
   },
 };
 </script>
@@ -171,9 +223,18 @@ $mainText: rgba(33, 37, 41, 1);
     }
   }
 
+  & a {
+    text-decoration: none;
+    color: white;
+  }
+
   & h3 {
     margin-bottom: 39px;
     margin-top: 80px;
+
+    &:first-child {
+      margin-top: 10px;
+    }
   }
 
   &-link {

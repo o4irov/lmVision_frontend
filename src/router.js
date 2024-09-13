@@ -1,12 +1,14 @@
 import { createWebHistory, createRouter } from "vue-router";
 
-import homePage from "@/components/homePage.vue"
-import about from "@/components/about.vue"
-import payment from "@/components/payment.vue"
-import contacts from "@/components/contacts.vue"
-import catalog from "@/components/catalog.vue"
-import portfolio from "@/components/portfolio.vue"
-import order from "@/components/order.vue"
+import homePage from "@/components/homePage.vue";
+import about from "@/components/about.vue";
+import payment from "@/components/payment.vue";
+import contacts from "@/components/contacts.vue";
+import catalog from "@/components/catalog.vue";
+import portfolio from "@/components/portfolio.vue";
+import order from "@/components/order.vue";
+import notFound from "./components/notFound.vue";
+import cart from "@/components/cart.vue";
 
 const routes = [
   {
@@ -64,6 +66,19 @@ const routes = [
     meta: {
       title: "Заказ"
     }
+  },
+  {
+    path: '/cart',
+    name: 'cart',
+    component: cart,
+    meta: {
+      title: "Корзина"
+    }
+  },
+  {
+    path: '/:pathMatch(.*)*',
+    name: 'NotFound',
+    component: notFound,
   },
 ];
 

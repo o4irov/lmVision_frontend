@@ -4,7 +4,17 @@
     <h3>{{ product.name }}</h3>
     <div class="productCard-description">
       <span>{{ product.price }} руб.</span>
-      <a href="/order" id="order">{{ product.description }} </a>
+      <button v-if="!isInCart()">В корзину</button>
+      <div v-if="isInCart()" class="quantity-controls">
+        <button @click="updateQuantity(product, product.quantity - 1)" class="quantity-button">
+          -
+        </button>
+        <span class="quantity">{{ product.quantity }}</span>
+        <button @click="updateQuantity(product, product.quantity + 1)" class="quantity-button">
+          +
+        </button>
+        <button @click="deleteItem(product)" class="delete-button">удалить</button>
+      </div>
     </div>
   </div>
 </template>
@@ -12,9 +22,42 @@
 <script>
 export default {
   props: {
+    itemsIds: {
+      type: Set,
+      required: true,
+    },
     product: {
       type: Object,
       required: true,
+    },
+  },
+  methods: {
+    isInCart() {
+      return this.itemsIds.has(this.product.id);
+    },
+    updateQuantity(item, newQuantity) {
+      if (newQuantity > 0) {
+        item.quantity = newQuantity;
+      }
+      if (newQuantity === 0) {
+        this.deleteItem(item);
+      }
+    },
+    deleteItem(item) {
+      var index = this.items.indexOf(item);
+      if (index > -1) {
+        this.items.splice(index, 1);
+      }
+    },
+    removeItem() {
+      const newSet = new Set(this.mySet);
+      newSet.delete(this.product.id);
+      this.$emit("updateIds", newSet);
+    },
+    addItem() {
+      const newSet = new Set(this.mySet);
+      newSet.add(this.product.id);
+      this.$emit("updateIds", newSet);
     },
   },
 };
@@ -40,9 +83,11 @@ export default {
       margin-right: 10px;
     }
 
-    & a {
-      font-weight: 300;
+    & button {
       color: black;
+      border: none;
+      background: none;
+      text-decoration: underline;
     }
   }
 

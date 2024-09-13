@@ -54,6 +54,10 @@ footer {
   font-size: 21px;
   padding: 100px 0 40px 0;
   width: 100%;
+
+  .addPadding {
+    padding: 0 100px;
+  }
 }
 .lists {
   display: flex;
@@ -103,6 +107,10 @@ li a {
 @media (max-width: 768px) {
   footer {
     padding: 20px 0 10px 0;
+
+    .addPadding {
+      padding: 20px;
+    }
 
     & .lists {
       flex-direction: column;
