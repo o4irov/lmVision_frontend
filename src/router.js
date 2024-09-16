@@ -1,4 +1,4 @@
-import { createWebHistory, createRouter, createWebHashHistory } from "vue-router";
+import { createWebHistory, createRouter } from "vue-router";
 
 import homePage from "@/components/homePage.vue";
 import about from "@/components/about.vue";
@@ -83,7 +83,7 @@ const routes = [
 ];
 
 const router = createRouter({
-  history: createWebHashHistory(), // указываем, что будет создаваться история посещений веб-страниц
+  history: createWebHistory(), // указываем, что будет создаваться история посещений веб-страниц
   routes,
   scrollBehavior(to, from, savedPosition) {
 
