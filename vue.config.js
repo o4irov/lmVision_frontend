@@ -5,7 +5,5 @@ module.exports = defineConfig({
   devServer: {
     port: 4200
   },
-  publicPath: process.env.NODE_ENV === 'production'
-    ? '/lmVision_frontend/'
-    : '/'
+  publicPath: '/'
 })
