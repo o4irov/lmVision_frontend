@@ -36,6 +36,7 @@
           :key="product.id"
           :product="product"
           :itemsIds="itemsIds"
+          @updateIds="updateIds"
         />
       </div>
     </div>
@@ -56,7 +57,7 @@ export default {
           name: "Product 1",
           description: "Description 1",
           price: 100,
-          image: "@/assets/img/noimage.png",
+          image: "noimage.png",
           quantity: 1,
         },
         {
@@ -64,7 +65,7 @@ export default {
           name: "Product 2",
           description: "Description 2",
           price: 200,
-          image: "@/assets/img/noimage.png",
+          image: "noimage.png",
           quantity: 1,
         },
         {
@@ -72,7 +73,7 @@ export default {
           name: "Product 3",
           description: "Description 3",
           price: 300,
-          image: "@/assets/img/noimage.png",
+          image: "noimage.png",
           quantity: 1,
         },
         {
@@ -80,7 +81,7 @@ export default {
           name: "Product 4",
           description: "Description 4",
           price: 400,
-          image: "@/assets/img/noimage.png",
+          image: "noimage.png",
           quantity: 1,
         },
         {
@@ -88,7 +89,7 @@ export default {
           name: "Product 5",
           description: "Description 5",
           price: 500,
-          image: "@/assets/img/noimage.png",
+          image: "noimage.png",
           quantity: 1,
         },
         {
@@ -96,7 +97,7 @@ export default {
           name: "Product 6",
           description: "Description 6",
           price: 600,
-          image: "@/assets/img/noimage.png",
+          image: "noimage.png",
           quantity: 1,
         },
         {
@@ -104,7 +105,7 @@ export default {
           name: "Product 7",
           description: "Description 7",
           price: 400,
-          image: "@/assets/img/noimage.png",
+          image: "noimage.png",
           quantity: 1,
         },
         {
@@ -112,7 +113,7 @@ export default {
           name: "Product 8",
           description: "Description 8",
           price: 500,
-          image: "@/assets/img/noimage.png",
+          image: "noimage.png",
           quantity: 1,
         },
         {
@@ -120,40 +121,51 @@ export default {
           name: "Product 9",
           description: "Description 9",
           price: 600,
-          image: "@/assets/img/noimage.png",
+          image: "noimage.png",
           quantity: 1,
         },
         // Добавьте больше товаров для примера
       ],
-      cartItems: [],
+      cartItems: new Set(),
       itemsIds: new Set(),
     };
   },
   computed: {},
   methods: {
     saveItemsToLocalStorage() {
-      this.cartItems = [];
-      this.itemsIds.forEach((itemId) => {
-        
+      var itemsForSave = [];
+      this.products.forEach((product) => {
+        if (this.itemsIds.has(product.id)) {
+          itemsForSave.push(product);
+        }
       });
 
-      localStorage.setItem("cartItems", JSON.stringify(this.cartItems));
+      localStorage.setItem("cartItems", JSON.stringify(itemsForSave));
     },
     loadItemsFromLocalStorage() {
       const savedItems = localStorage.getItem("cartItems");
       if (savedItems) {
-        this.cartItems = JSON.parse(savedItems);
+        var items = JSON.parse(savedItems);
+        this.cartItems = Array.isArray(items) ? new Set(items) : new Set();
         this.cartItems.forEach((item) => {
           this.itemsIds.add(item.id);
         });
       }
     },
-    addItemToCart(item) {
-      this.itemsIds.add(item.id);
-      this.cartItems.push(item);
-    },
-    updateIds(newSet) {
-      this.itemsIds = newSet;
+    updateIds(id) {
+      var item = this.products.find((product) => product.id === id[1]);
+      if (!item) {
+        return;
+      }
+      if (id[0] === "+") {
+        this.itemsIds.add(id[1]);
+        this.cartItems.add(item);
+      } else {
+        this.itemsIds.delete(id[1]);
+        this.cartItems.delete(item);
+      }
+
+      this.saveItemsToLocalStorage();
     },
   },
   mounted() {
@@ -171,8 +183,6 @@ export default {
     const footer = document.querySelector("footer .container");
     footer.classList.add("container");
     footer.classList.remove("addPadding");
-
-    this.saveItemsToLocalStorage();
   },
 };
 </script>

@@ -45,88 +45,7 @@
 export default {
   data() {
     return {
-      items: [
-        {
-          id: 1,
-          name: "Смартфон",
-          description: "Современный смартфон с OLED экраном",
-          price: 25000,
-          quantity: 1,
-          image: "noimage.png",
-        },
-        {
-          id: 2,
-          name: "Ноутбук",
-          description: "Мощный игровой ноутбук",
-          price: 75000,
-          quantity: 1,
-          image: "noimage.png",
-        },
-        {
-          id: 3,
-          name: "Беспроводные наушники",
-          description: "Наушники с шумоподавлением",
-          price: 7000,
-          quantity: 2,
-          image: "noimage.png",
-        },
-        {
-          id: 4,
-          name: "Умные часы",
-          description: "Часы с функцией отслеживания активности",
-          price: 15000,
-          quantity: 1,
-          image: "noimage.png",
-        },
-        {
-          id: 5,
-          name: "Кофеварка",
-          description: "Эспрессо-машина для дома",
-          price: 5000,
-          quantity: 1,
-          image: "noimage.png",
-        },
-        {
-          id: 6,
-          name: "Телевизор",
-          description: "4K Ultra HD телевизор",
-          price: 40000,
-          quantity: 1,
-          image: "noimage.png",
-        },
-        {
-          id: 7,
-          name: "Фитнес-браслет",
-          description: "Фитнес-трекер для занятий спортом",
-          price: 3000,
-          quantity: 2,
-          image: "noimage.png",
-        },
-        {
-          id: 8,
-          name: "Электросамокат",
-          description: "Складной электросамокат",
-          price: 20000,
-          quantity: 1,
-          image: "noimage.png",
-        },
-        {
-          id: 9,
-          name: "Планшет",
-          description: "Мощный планшет с большим экраном",
-          price: 30000,
-          quantity: 1,
-          image: "noimage.png",
-        },
-        {
-          id: 10,
-          name: "Игровая консоль",
-          description: "Современная игровая консоль с поддержкой 4K",
-          price: 35000,
-          quantity: 1,
-          image: "noimage.png",
-        },
-      ],
+      items: [],
     };
   },
   computed: {
@@ -141,6 +60,12 @@ export default {
     updateQuantity(item, newQuantity) {
       if (newQuantity > 0) {
         item.quantity = newQuantity;
+        const newItem = this.items.find((i) => i.id === item.id);
+
+        if (newItem) {
+          newItem.quantity = newQuantity;
+          this.saveItemsToLocalStorage();
+        }
       }
       if (newQuantity === 0) {
         this.deleteItem(item);
@@ -150,15 +75,22 @@ export default {
       var index = this.items.indexOf(item);
       if (index > -1) {
         this.items.splice(index, 1);
+
+        this.saveItemsToLocalStorage();
       }
     },
     itemTotal(item) {
       return item.price * item.quantity;
     },
     checkout() {
-      alert("Оформление заказа");
+      if (this.items.length > 0) {
+        window.location.href = "/order";
+      } else {
+        alert("Корзина пустая!");
+      }
     },
     getImageUrl(imageName) {
+      console.log(imageName);
       return require(`@/assets/img/${imageName}`);
     },
     saveItemsToLocalStorage() {
@@ -166,10 +98,14 @@ export default {
     },
     loadItemsFromLocalStorage() {
       const savedItems = localStorage.getItem("cartItems");
+      console.log(savedItems);
       if (savedItems) {
         this.items = JSON.parse(savedItems);
       }
     },
+  },
+  mounted() {
+    this.loadItemsFromLocalStorage();
   },
 };
 </script>

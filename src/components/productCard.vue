@@ -4,17 +4,10 @@
     <h3>{{ product.name }}</h3>
     <div class="productCard-description">
       <span>{{ product.price }} руб.</span>
-      <button v-if="!isInCart()">В корзину</button>
-      <div v-if="isInCart()" class="quantity-controls">
-        <button @click="updateQuantity(product, product.quantity - 1)" class="quantity-button">
-          -
-        </button>
-        <span class="quantity">{{ product.quantity }}</span>
-        <button @click="updateQuantity(product, product.quantity + 1)" class="quantity-button">
-          +
-        </button>
-        <button @click="deleteItem(product)" class="delete-button">удалить</button>
-      </div>
+      <button v-if="!isInCart()" @click="addItem()">В корзину</button>
+      <button v-if="isInCart()" @click="removeItem()" class="delete-button">
+        Удалить
+      </button>
     </div>
   </div>
 </template>
@@ -31,33 +24,21 @@ export default {
       required: true,
     },
   },
+  data() {
+    return {};
+  },
   methods: {
     isInCart() {
       return this.itemsIds.has(this.product.id);
     },
-    updateQuantity(item, newQuantity) {
-      if (newQuantity > 0) {
-        item.quantity = newQuantity;
-      }
-      if (newQuantity === 0) {
-        this.deleteItem(item);
-      }
-    },
-    deleteItem(item) {
-      var index = this.items.indexOf(item);
-      if (index > -1) {
-        this.items.splice(index, 1);
-      }
-    },
     removeItem() {
-      const newSet = new Set(this.mySet);
-      newSet.delete(this.product.id);
-      this.$emit("updateIds", newSet);
+      this.product.quantity = 1;
+      this.itemsIds.delete(this.product.id);
+      this.$emit("updateIds", ["-", this.product.id]);
     },
     addItem() {
-      const newSet = new Set(this.mySet);
-      newSet.add(this.product.id);
-      this.$emit("updateIds", newSet);
+      this.itemsIds.add(this.product.id);
+      this.$emit("updateIds", ["+", this.product.id]);
     },
   },
 };
@@ -76,7 +57,7 @@ export default {
 
   &-description {
     display: flex;
-    align-items: start;
+    align-items: center;
     justify-content: start;
 
     & span {
@@ -88,6 +69,33 @@ export default {
       border: none;
       background: none;
       text-decoration: underline;
+    }
+
+    & .quantity-controls {
+      display: flex;
+      align-items: center;
+
+      .quantity-button {
+        background-color: #ddd;
+        border: none;
+        padding: 5px 10px;
+        cursor: pointer;
+        text-decoration: none;
+
+        &:hover {
+          background-color: #ccc;
+        }
+      }
+
+      .delete-button {
+        border: none;
+        background: none;
+        text-decoration: underline;
+      }
+
+      .quantity {
+        margin: 0 10px;
+      }
     }
   }
 
