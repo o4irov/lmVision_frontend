@@ -26,7 +26,7 @@
     "swiper": "^11.1.14",
     "vue": "^3.4.27",
     "vue-cli-service": "^5.0.10",
-    "vue-router": "^4.4.0"
+    "vue-router": "^4.4.5"
   },
   "devDependencies": {
     "@babel/core": "^7.12.16",
