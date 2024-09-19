@@ -1,6 +1,6 @@
 <template>
   <nav :class="navClasses">
-    <div class="container nav">
+    <div class="nav" :class="{ container: this.currentPath() != '/catalog' }">
       <a href="/" class="logo">
         <div class="image"><img src="@/assets/img/logo.png" /></div>
         <div class="name">
@@ -14,15 +14,17 @@
         <span :class="{ open: isMenuOpen }"></span>
       </button>
       <ul class="nav-links" :class="{ open: isMenuOpen }">
-        <li
-          v-for="page in pages"
-          :key="page['path']"
-          :class="{ active: currentPage === page }"
-        >
+        <li v-for="page in pages" :key="page['path']">
           <!-- <router-link :to="'/' + page['path']" class="link" @click="closeMenu">{{
             page["name"]
           }}</router-link> -->
-          <a :href="'/' + page['path']" class="link">{{ page["name"] }}</a>
+          <a
+            :href="'/' + page['path']"
+            class="link"
+            v-on:click.prevent="navigate(page['path'])"
+            >{{ page["name"] }}</a
+          >
+          <!-- <a :href="'/' + page['path']" class="link">{{ page["name"] }}</a> -->
         </li>
       </ul>
     </div>
@@ -39,7 +41,6 @@ export default {
         { name: "Доставка|Оплата", path: "payment" },
         { name: "Контакты", path: "contacts" },
       ],
-      currentPage: "Home",
       isScrolledUp: false,
       isScrolledDown: false,
       isTop: true,
@@ -57,8 +58,8 @@ export default {
   },
   methods: {
     navigate(page) {
-      this.currentPage = page;
-      // здесь вы можете добавить логику для перехода на другую страницу
+      this.closeMenu();
+      this.$router.push("/" + page);
     },
     handleScroll() {
       const currentScroll = window.scrollY;
@@ -78,10 +79,16 @@ export default {
     closeMenu() {
       this.isMenuOpen = false;
     },
+    currentPath() {
+      const path = this.$route.path;
+
+      return path;
+    },
   },
   mounted() {
     this.lastScroll = 0;
     window.addEventListener("scroll", this.handleScroll);
+    this.currentPath();
   },
   beforeDestroy() {
     window.removeEventListener("scroll", this.handleScroll);

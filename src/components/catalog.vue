@@ -169,20 +169,7 @@ export default {
     },
   },
   mounted() {
-    const container = document.querySelector(".container");
-    container.classList.remove("container");
-    const footer = document.querySelector("footer .container");
-    footer.classList.remove("container");
-    footer.classList.add("addPadding");
-
     this.loadItemsFromLocalStorage();
-  },
-  beforeUnmount() {
-    const container = document.querySelector(".nav");
-    container.classList.add("container");
-    const footer = document.querySelector("footer .container");
-    footer.classList.add("container");
-    footer.classList.remove("addPadding");
   },
 };
 </script>

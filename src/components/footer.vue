@@ -1,6 +1,12 @@
 <template>
   <footer>
-    <div class="container d-flex justify-content-between align-items-center">
+    <div
+      class="d-flex justify-content-between align-items-center"
+      :class="{
+        container: this.currentPath() != '/catalog',
+        addPadding: this.currentPath() === '/catalog',
+      }"
+    >
       <div style="width: 100%">
         <div class="lists">
           <ul>
@@ -40,7 +46,14 @@ export default {
     return {};
   },
   computed: {},
-  methods: {},
+  methods: {
+    currentPath() {
+      const path = this.$route.path;
+      this.currentPage = path;
+
+      return path;
+    },
+  },
   mounted() {},
 };
 </script>
