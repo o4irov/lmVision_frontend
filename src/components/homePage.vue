@@ -1101,6 +1101,10 @@ h2 {
       height: 100%;
       margin-left: auto;
       margin-right: auto;
+
+      &-slide {
+        justify-content: start;
+      }
     }
 
     &-grid {
@@ -1109,6 +1113,8 @@ h2 {
         height: 469px;
         display: flex;
         flex-direction: column;
+        align-items: start;
+        justify-content: start;
         border-radius: 4px;
         text-align: left;
 
