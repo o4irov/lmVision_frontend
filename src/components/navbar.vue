@@ -18,13 +18,13 @@
           <!-- <router-link :to="'/' + page['path']" class="link" @click="closeMenu">{{
             page["name"]
           }}</router-link> -->
-          <a
+          <!-- <a
             :href="'/' + page['path']"
             class="link"
             v-on:click.prevent="navigate(page['path'])"
             >{{ page["name"] }}</a
-          >
-          <!-- <a :href="'/' + page['path']" class="link">{{ page["name"] }}</a> -->
+          > -->
+          <a :href="'/' + page['path']" class="link">{{ page["name"] }}</a>
         </li>
       </ul>
     </div>

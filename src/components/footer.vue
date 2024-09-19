@@ -11,10 +11,10 @@
         <div class="lists">
           <ul>
             <p>Страницы</p>
-            <li><a href="#">О нас</a></li>
-            <li><a href="#">Каталог</a></li>
-            <li><a href="#">Доставка|Оплата</a></li>
-            <li><a href="#">Контакты</a></li>
+            <li><a href="/about">О нас</a></li>
+            <li><a href="/catalog">Каталог</a></li>
+            <li><a href="/payment">Доставка|Оплата</a></li>
+            <li><a href="/contacts">Контакты</a></li>
           </ul>
           <ul>
             <p>Соцсети</p>
@@ -23,7 +23,11 @@
           </ul>
           <ul>
             <p>Информация</p>
-            <li><a href="#">Политика обработки данных</a></li>
+            <li>
+              <a href="https://02.rkn.gov.ru/directions/p4172/p18331/"
+                >Политика обработки данных</a
+              >
+            </li>
           </ul>
         </div>
         <div class="copyright">
@@ -52,6 +56,9 @@ export default {
       this.currentPage = path;
 
       return path;
+    },
+    navigate(page) {
+      this.$router.push("/" + page);
     },
   },
   mounted() {},
