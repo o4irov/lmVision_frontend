@@ -281,7 +281,6 @@
         </div>
         <div class="padding col-sm-2 col-0"></div>
         <div class="seeOnline-row-right col-sm-7 col-12">
-          <img src="@/assets/img/house.png" alt="house" />
           <div class="seeOnline-row-right-example">Пример работы</div>
           <div class="seeOnline-row-right-linkToVideo">
             Смотреть <i class="fa-solid fa-play"></i>
@@ -1209,8 +1208,6 @@ h2 {
       }
     }
     &-right {
-      width: 100%;
-      height: auto;
       background: url("@/assets/img/house.png") no-repeat;
       border-radius: 8px;
       position: relative;
@@ -1235,9 +1232,6 @@ h2 {
         padding: 18px 25px;
         border-radius: 100px;
         border: 1px solid white;
-      }
-      & img {
-        display: none;
       }
     }
 
