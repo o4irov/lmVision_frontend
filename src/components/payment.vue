@@ -83,7 +83,9 @@
           <!-- <router-link :to="'/contacts'" class="delivery-questions-left-link">
             Написать нам&nbsp;<i class="fa-solid fa-arrow-right arrow animated"></i>
           </router-link> -->
-          <a :href="'/contacts'" class="delivery-questions-left-link"> Написать нам&nbsp;<i class="fa-solid fa-arrow-right arrow animated"></i></a>
+          <a :href="'/contacts'" class="delivery-questions-left-link">
+            Написать нам&nbsp;<i class="fa-solid fa-arrow-right arrow animated"></i
+          ></a>
         </div>
         <div class="delivery-questions-right col-sm-4">
           <img src="@/assets/img/delivery.png" alt="delivery" />
@@ -93,23 +95,26 @@
     <div class="payment row">
       <div class="payment-block col-sm-9 col-12">
         <h2>Оплата<span class="pink">.</span></h2>
-        <p :class="isScrolled(1200, 1700)">
+        <div :class="isScrolled(1200, 1700)">
           <p>
-            Для вашего удобства, оплата заказов в LM Video производится вне сайта. Вы можете
-          оплатить ваш заказ посредством банковского перевода при создании заявки.
+            Для вашего удобства, оплата заказов в LM Video производится вне сайта. Вы
+            можете оплатить ваш заказ посредством банковского перевода при создании
+            заявки.
           </p>
           <br /><br />
           <p>
             Также возможен вариант оплаты напрямую при самовывозе или при выполнении услуг
-          на вашем объекте. Такой подход позволяет нам обеспечить максимальную
-          безопасность и прозрачность каждой транзакции, а также предоставить вам гибкость
-          в выборе наиболее удобного способа оплаты.</p>
+            на вашем объекте. Такой подход позволяет нам обеспечить максимальную
+            безопасность и прозрачность каждой транзакции, а также предоставить вам
+            гибкость в выборе наиболее удобного способа оплаты.
+          </p>
           <br /><br />
           <p>
             Если вы хотите произвести дистанционную оплату за товар или услугу, мы
-          идивидуально вышлем вам счёт на оплату. Вы можете выбрать наиболее удобный для
-          вас способ - получить счет по электронной почте или через мессенджер.</p>
-        </p>
+            идивидуально вышлем вам счёт на оплату. Вы можете выбрать наиболее удобный для
+            вас способ - получить счет по электронной почте или через мессенджер.
+          </p>
+        </div>
       </div>
       <img src="@/assets/img/payment.png" alt="payment" :class="isScrolled(1300, 0)" />
     </div>
@@ -362,23 +367,23 @@ $mainText: rgba(66, 70, 73, 1);
       margin-bottom: 36px;
     }
 
-    & p {
+    & div {
       &.animated {
-          & p{
-            opacity: 1;
+        & p {
+          opacity: 1;
           transform: none;
-          }
         }
-      & p{
+      }
+      & p {
         opacity: 0;
         transform: translateY(-100px);
         transition: all 1s ease-in-out;
         transition-delay: 1s;
 
-        &:first-child{
+        &:first-child {
           transition-delay: 0.5s;
         }
-        &:last-child{
+        &:last-child {
           transition-delay: 1.5s;
         }
       }
@@ -391,12 +396,12 @@ $mainText: rgba(66, 70, 73, 1);
     bottom: 0;
 
     opacity: 0;
-        transform: translateX(100px);
-        transition: all 1s ease-in-out;
-        &.animated {
-          opacity: 1;
-          transform: none;
-        }
+    transform: translateX(100px);
+    transition: all 1s ease-in-out;
+    &.animated {
+      opacity: 1;
+      transform: none;
+    }
   }
 }
 
