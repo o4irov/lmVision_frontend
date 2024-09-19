@@ -3,10 +3,9 @@
     <h1>Оформление заказа</h1>
     <h3>Ваш заказ:</h3>
     <ol>
-      <li>Камера QX776035 <img src="@/assets/img/delete.svg" alt="" /></li>
-      <li>Установка камеры дома <img src="@/assets/img/delete.svg" alt="" /></li>
-      <li>
-        Комплектующие для камеры QX776035 <img src="@/assets/img/delete.svg" alt="" />
+      <li v-for="item in this.items" :key="item.id">
+        {{ item.name }} &nbsp;{{ item.quantity }}шт.&nbsp;
+        <img src="@/assets/img/delete.svg" alt="" />
       </li>
     </ol>
     <div class="form-right">
@@ -40,11 +39,23 @@
 <script>
 export default {
   data() {
-    return {};
+    return {
+      items: [],
+    };
   },
   computed: {},
-  methods: {},
-  mounted() {},
+  methods: {
+    loadItemsFromLocalStorage() {
+      const savedItems = localStorage.getItem("cartItems");
+      console.log(savedItems);
+      if (savedItems) {
+        this.items = JSON.parse(savedItems);
+      }
+    },
+  },
+  mounted() {
+    this.loadItemsFromLocalStorage();
+  },
 };
 </script>
 
