@@ -3,36 +3,63 @@
     <div class="sideMenu col-sm-2">
       <div class="sideMenu-search">
         <img src="@/assets/img/search.svg" alt="" />
-        <input type="text" placeholder="Поиск" />
+        <input type="text" placeholder="Поиск" @input="search($event.target.value)" />
       </div>
       <a href="/cart"><h3>Корзина</h3></a>
       <h3 class="sideMenu-title">Камеры</h3>
-      <div class="sideMenu-link" id="forHome">
+      <div
+        class="sideMenu-link"
+        id="forHome"
+        :class="{ activeFilter: filter === 'для дома' }"
+        @click="filterProducts('для дома')"
+      >
         <img src="@/assets/img/ipCamera.svg" alt="" /> Для дома
       </div>
-      <div class="sideMenu-link" id="outside">
+      <div
+        class="sideMenu-link"
+        id="outside"
+        :class="{ activeFilter: filter === 'наружные' }"
+        @click="filterProducts('наружные')"
+      >
         <img src="@/assets/img/camera.svg" alt="" />Наружные
       </div>
-      <div class="sideMenu-link" id="complect">
+      <div
+        class="sideMenu-link"
+        id="complect"
+        :class="{ activeFilter: filter === 'комплектующие' }"
+        @click="filterProducts('комплектующие')"
+      >
         <img src="@/assets/img/cart.svg" alt="" />Комплектующие
       </div>
 
       <h3 class="sideMenu-title">Услуги</h3>
-      <div class="sideMenu-link" id="montage">
+      <div
+        class="sideMenu-link"
+        id="montage"
+        :class="{ activeFilter: filter === 'монтаж' }"
+        @click="filterProducts('монтаж')"
+      >
         <img src="@/assets/img/montage.svg" alt="" />Монтаж
       </div>
-      <div class="sideMenu-link" id="repair">
+      <div
+        class="sideMenu-link"
+        id="repair"
+        :class="{ activeFilter: filter === 'ремонт' }"
+        @click="filterProducts('ремонт')"
+      >
         <img src="@/assets/img/repair.svg" alt="" />Ремонт
       </div>
 
-      <div class="sideMenu-link" id="contacts">
-        <img src="@/assets/img/i.png" alt="" />Контакты
-      </div>
+      <a href="/contacts"
+        ><div class="sideMenu-link" id="contacts">
+          <img src="@/assets/img/i.png" alt="" />Контакты
+        </div></a
+      >
     </div>
     <div class="catalog col-sm-10">
       <div class="catalog-grid">
         <ProductCard
-          v-for="product in products"
+          v-for="product in filteredProducts"
           :key="product.id"
           :product="product"
           :itemsIds="itemsIds"
@@ -45,101 +72,52 @@
 
 <script>
 import ProductCard from "./productCard.vue";
+import http from "@/http-common";
+
 export default {
   components: {
     ProductCard,
   },
   data() {
     return {
-      products: [
-        {
-          id: 1,
-          name: "Product 1",
-          description: "Description 1",
-          price: 100,
-          image: "noimage.png",
-          quantity: 1,
-        },
-        {
-          id: 2,
-          name: "Product 2",
-          description: "Description 2",
-          price: 200,
-          image: "noimage.png",
-          quantity: 1,
-        },
-        {
-          id: 3,
-          name: "Product 3",
-          description: "Description 3",
-          price: 300,
-          image: "noimage.png",
-          quantity: 1,
-        },
-        {
-          id: 4,
-          name: "Product 4",
-          description: "Description 4",
-          price: 400,
-          image: "noimage.png",
-          quantity: 1,
-        },
-        {
-          id: 5,
-          name: "Product 5",
-          description: "Description 5",
-          price: 500,
-          image: "noimage.png",
-          quantity: 1,
-        },
-        {
-          id: 6,
-          name: "Product 6",
-          description: "Description 6",
-          price: 600,
-          image: "noimage.png",
-          quantity: 1,
-        },
-        {
-          id: 7,
-          name: "Product 7",
-          description: "Description 7",
-          price: 400,
-          image: "noimage.png",
-          quantity: 1,
-        },
-        {
-          id: 8,
-          name: "Product 8",
-          description: "Description 8",
-          price: 500,
-          image: "noimage.png",
-          quantity: 1,
-        },
-        {
-          id: 9,
-          name: "Product 9",
-          description: "Description 9",
-          price: 600,
-          image: "noimage.png",
-          quantity: 1,
-        },
-        // Добавьте больше товаров для примера
-      ],
+      products: [],
+      filteredProducts: [],
+      filter: "",
       cartItems: new Set(),
       itemsIds: new Set(),
     };
   },
   computed: {},
   methods: {
+    getProducts() {
+      http
+        .get("/products")
+        .then((response) => {
+          this.products = response.data;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    getServices() {
+      http
+        .get("/services")
+        .then((response) => {
+          var services = response.data;
+          this.products.push(...services);
+          this.filteredProducts.push(...this.products);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
     saveItemsToLocalStorage() {
       var itemsForSave = [];
       this.products.forEach((product) => {
-        if (this.itemsIds.has(product.id)) {
+        if (this.itemsIds.has(this.hashCode(product.name))) {
           itemsForSave.push(product);
         }
       });
-
       localStorage.setItem("cartItems", JSON.stringify(itemsForSave));
     },
     loadItemsFromLocalStorage() {
@@ -148,27 +126,57 @@ export default {
         var items = JSON.parse(savedItems);
         this.cartItems = Array.isArray(items) ? new Set(items) : new Set();
         this.cartItems.forEach((item) => {
-          this.itemsIds.add(item.id);
+          this.itemsIds.add(this.hashCode(item.name));
         });
       }
     },
     updateIds(id) {
-      var item = this.products.find((product) => product.id === id[1]);
+      var item = this.products.find((product) => product.name === id[1]);
       if (!item) {
         return;
       }
       if (id[0] === "+") {
-        this.itemsIds.add(id[1]);
+        this.itemsIds.add(this.hashCode(id[1]));
         this.cartItems.add(item);
       } else {
-        this.itemsIds.delete(id[1]);
+        this.itemsIds.delete(this.hashCode(id[1]));
         this.cartItems.delete(item);
       }
 
       this.saveItemsToLocalStorage();
     },
+    search(searchString) {
+      if (this.filter !== "") {
+        this.filteredProducts = this.products.filter((product) => {
+          return product.typeName.toLowerCase() === this.filter.toLowerCase();
+        });
+      } else {
+        this.filteredProducts = this.products;
+      }
+      this.filteredProducts = this.filteredProducts.filter((product) => {
+        return product.name.includes(searchString);
+      });
+    },
+    filterProducts(filter) {
+      if (this.filter === filter) {
+        this.filteredProducts = this.products;
+        this.filter = "";
+        return;
+      }
+      this.filter = filter;
+      this.filteredProducts = this.products.filter((product) => {
+        return product.typeName.toLowerCase() === filter.toLowerCase();
+      });
+    },
+    hashCode(s) {
+      for (var i = 0, h = 0; i < s.length; i++)
+        h = (Math.imul(31, h) + s.charCodeAt(i)) | 0;
+      return h;
+    },
   },
   mounted() {
+    this.getProducts();
+    this.getServices();
     this.loadItemsFromLocalStorage();
   },
 };
@@ -237,6 +245,7 @@ $mainText: rgba(33, 37, 41, 1);
   &-link {
     display: flex;
     align-items: center;
+    padding: 5px 10px;
     color: white;
     margin: 20px 0;
     cursor: pointer;
@@ -248,6 +257,11 @@ $mainText: rgba(33, 37, 41, 1);
     &:last-child {
       margin-top: 175px;
     }
+  }
+
+  & .activeFilter {
+    background-color: rgba(255, 255, 255, 0.426);
+    border-radius: 10px;
   }
 
   & img {

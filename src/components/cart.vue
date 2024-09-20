@@ -3,7 +3,7 @@
     <!-- Левая часть с прокручиваемым списком товаров -->
     <div class="cart-items">
       <div v-for="item in items" :key="item.id" class="cart-item">
-        <img :src="getImageUrl(item.image)" :alt="item.name" class="item-image" />
+        <img :src="getImageUrl(item.imageUrl)" :alt="item.name" class="item-image" />
         <div class="item-details">
           <h3 class="item-name">{{ item.name }}</h3>
           <p class="item-description">{{ item.description }}</p>
@@ -90,7 +90,6 @@ export default {
       }
     },
     getImageUrl(imageName) {
-      console.log(imageName);
       return require(`@/assets/img/${imageName}`);
     },
     saveItemsToLocalStorage() {
@@ -98,7 +97,6 @@ export default {
     },
     loadItemsFromLocalStorage() {
       const savedItems = localStorage.getItem("cartItems");
-      console.log(savedItems);
       if (savedItems) {
         this.items = JSON.parse(savedItems);
       }

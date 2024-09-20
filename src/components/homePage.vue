@@ -209,7 +209,7 @@
             :key="filter.name"
             :class="{ active: currentFilter === filter.name }"
             class="catalog-head-list-item"
-            @click="changeFilter(filter.name)"
+            @click="filterProducts(filter.name)"
           >
             <a>{{ filter["text"] }}</a>
           </li>
@@ -246,7 +246,10 @@
           :modules="modules"
           class="mobileSlider"
         >
-          <swiper-slide v-for="(catalogItem, index) in catalog.slice(0, 3)" :key="index">
+          <swiper-slide
+            v-for="(catalogItem, index) in filteredProducts.slice(0, 3)"
+            :key="index"
+          >
             <div class="catalog-slider-grid-item">
               <img src="@/assets/img/noimage.png" :alt="catalogItem.name" />
               <h3 class="catalog-slider-item-name">{{ catalogItem.name }}</h3>
@@ -313,6 +316,7 @@ import "swiper/css/pagination";
 
 // import required modules
 import { Grid, Pagination } from "swiper/modules";
+import http from "@/http-common";
 
 export default {
   components: {
@@ -323,19 +327,18 @@ export default {
   data() {
     return {
       filters: [
-        { name: "products", text: "Товары" },
-        { name: "services", text: "Услуги" },
-        { name: "cameras", text: "Видеокамеры" },
-        { name: "components", text: "Комплектующие" },
+        { name: "", text: "Все" },
+        { name: "для дома", text: "Для дома" },
+        { name: "наружные", text: "Наружные" },
+        { name: "комплектующие", text: "Комплектующие" },
+        { name: "монтаж", text: "Монтаж" },
+        { name: "ремонт", text: "Ремонт" },
       ],
-      catalog: Array(19).fill({
-        img: "@/assets/img/noimage.png",
-        name: "Название камеры",
-        description: "Описание основных характеристик",
-      }),
+      catalog: [],
+      filteredProducts: [],
       itemsPerPage: 6,
       currentPage: 1,
-      currentFilter: "products",
+      currentFilter: "",
       scrollY: 0,
       scrolls: new Set(),
     };
@@ -354,15 +357,44 @@ export default {
   computed: {
     paginatedProducts() {
       const pages = [];
-      for (let i = 0; i < this.catalog.length; i += this.itemsPerPage) {
-        pages.push(this.catalog.slice(i, i + this.itemsPerPage));
+      for (let i = 0; i < this.filteredProducts.length; i += this.itemsPerPage) {
+        pages.push(this.filteredProducts.slice(i, i + this.itemsPerPage));
       }
       return pages;
     },
   },
   methods: {
-    changeFilter(filter) {
+    getProducts() {
+      http
+        .get("/products")
+        .then((response) => {
+          this.catalog = response.data;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    getServices() {
+      http
+        .get("/services")
+        .then((response) => {
+          var services = response.data;
+          this.catalog.push(...services);
+          this.filteredProducts.push(...this.catalog);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    filterProducts(filter) {
       this.currentFilter = filter;
+      if (filter === "") {
+        this.filteredProducts = this.catalog;
+        return;
+      }
+      this.filteredProducts = this.catalog.filter((product) => {
+        return product.typeName.toLowerCase() === filter.toLowerCase();
+      });
     },
     handleScroll() {
       this.scrollY = window.scrollY;
@@ -409,6 +441,9 @@ export default {
     var mobileCatalog = catalog.cloneNode(true);
 
     document.querySelectorAll(".swiper-pagination")[1].append(mobileCatalog);
+
+    this.getProducts();
+    this.getServices();
   },
 };
 </script>
