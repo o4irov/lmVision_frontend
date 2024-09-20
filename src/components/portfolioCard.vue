@@ -1,8 +1,6 @@
 <template>
   <div class="portfolioCard">
-    <img src="@/assets/img/portfolioCase.png" alt="portfolio image" />
-    <h3>{{ portfolioItem.name }}</h3>
-    <p>{{ portfolioItem.address }}</p>
+    <img :src="getImageUrl(portfolioItem.image)" alt="portfolio image" />
   </div>
 </template>
 
@@ -14,13 +12,18 @@ export default {
       required: true,
     },
   },
+  methods: {
+    getImageUrl(imageName) {
+      return require(`@/assets/img/${imageName}`);
+    },
+  },
 };
 </script>
 
 <style lang="scss">
 .portfolioCard {
   width: 424px;
-  height: 469px;
+  height: 400px;
   border-radius: 4px;
 
   & h3 {
@@ -47,7 +50,7 @@ export default {
 @media (max-width: 768px) {
   .portfolioCard {
     width: 300px;
-    height: 350px;
+    height: 300px;
 
     & img {
       width: 300px;
