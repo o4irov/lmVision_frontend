@@ -6,8 +6,8 @@
       </div>
       <div class="head-text row">
         <p class="col-sm-7 col-12">
-          Откройте для себя LM Vision и наш подход к обеспечению безопасности, надежности
-          и передовых технологий в области видеонаблюдения.
+          Познакомьтесь с LM Vision и нашим подходом к безопасности, надежности и
+          передовым технологиям в видеонаблюдении.
         </p>
       </div>
     </div>
@@ -15,8 +15,8 @@
   <div class="container">
     <div class="oneDirection">
       <div class="oneDirection-title row">
-        <h2 :class="isScrolled(0, 0)" class="col-sm-6 col-12">
-          Мы смотрим в одном направлении с нашими клиентами
+        <h2 :class="isScrolled(0, 0)" class="col-sm-9 col-12">
+          Мы смотрим в одном направлении с нашими клиентами<span class="pink">.</span>
         </h2>
       </div>
       <div class="oneDirection-example row">
@@ -38,18 +38,16 @@
       </div>
       <div class="oneDirection-text row">
         <div class="col-sm-10 col-12" :class="isScrolled(850, 700)">
-          <p>В LM Vision мы уверены, что обеспечение безопасности и удобства наших клиентов -
-          это главное. Мы постоянно ищем инновационные решения в области систем
-          видеонаблюдения, чтобы создавать безопасное и защищенное будущее.</p>
-          <br />
-          <br />
           <p>
-            Наше стремление к инновациям побуждает нас постоянно исследовать новые
-          направления, совершенствовать наши процессы и предлагать передовые результаты
-          для наших клиентов. Мы стремимся гарантировать, что наши решения всегда
-          предоставляют максимальный комфорт и уверенность в безопасности. Присоединяйтесь
-          к нам в принятии инноваций, чтобы вместе идти к более безопасному и комфортному
-          миру.
+            В <span class="pink">LM Video</span> мы уверены, что безопасность и комфорт
+            клиентов — наш приоритет. Мы постоянно ищем инновационные решения в
+            видеонаблюдении для создания защищенного будущего.
+          </p>
+          <p>
+            Стремление к инновациям побуждает нас исследовать новые направления и
+            совершенствовать процессы, чтобы предлагать передовые результаты. Мы
+            гарантируем максимальный комфорт и уверенность в безопасности. Присоединяйтесь
+            к нам для совместного движения к более безопасному и комфортному миру.
           </p>
         </div>
       </div>
@@ -61,26 +59,42 @@
     </div>
     <div class="security row">
       <div class="security-left col-sm-4">
-        <img src="../assets/img/lock.png" alt="lock" class="lock" :class="isScrolled(1900, 700)" />
-        <img src="../assets/img/shield.png" alt="shield" class="shield" :class="isScrolled(1900, 700)" />
+        <img
+          src="../assets/img/lock.png"
+          alt="lock"
+          class="lock"
+          :class="isScrolled(1900, 700)"
+        />
+        <img
+          src="../assets/img/shield.png"
+          alt="shield"
+          class="shield"
+          :class="isScrolled(1900, 700)"
+        />
       </div>
       <div class="security-right col-sm-8 col-12">
         <p>
-          В LM Video мы понимаем, что безопасность и комфорт наших клиентов - это
-          приоритет. Поэтому мы не только предлагаем передовые решения для
-          видеонаблюдения, но и обеспечиваем полный спектр услуг, включая профессиональную
-          установку и поддержку. Наши эксперты работают индивидуально с каждым клиентом,
-          чтобы понять их уникальные потребности и предложить оптимальные решения. Мы
-          также обеспечиваем простой и удобный процесс установки и настройки оборудования,
-          минимизируя возможные неудобства. Наша цель - создать для клиентов ощущение
-          уверенности и спокойствия, зная, что их безопасность находится в надежных руках.
+          В <span class="pink">LM Video</span> безопасность и комфорт клиентов — наш
+          приоритет. Мы предлагаем передовые решения для видеонаблюдения и полный спектр
+          услуг, включая профессиональную установку и поддержку. Наши эксперты
+          индивидуально работают с каждым клиентом, чтобы понять их уникальные потребности
+          и предложить оптимальные решения.
+          <br />
+          <br />
+          Мы обеспечиваем простой и удобный процесс установки, минимизируя неудобства.
+          <span class="pink">Наша цель</span> — дарить уверенность и спокойствие, зная,
+          что безопасность клиентов в надежных руках.
         </p>
       </div>
     </div>
     <div class="usage">
       <div class="usage-example row">
         <div class="usage-example-image col-sm-8 col-12">
-          <img src="../assets/img/usage.png" alt="usage" :class="isScrolled(2400, 2000)"/>
+          <img
+            src="../assets/img/usage.png"
+            alt="usage"
+            :class="isScrolled(2400, 2000)"
+          />
         </div>
         <div class="usage-example-text col-sm-4 col-12" :class="isScrolled(2400, 2200)">
           Принцип работы камеры на WiFi
@@ -171,7 +185,8 @@ h2 {
   }
   &-text {
     & p {
-      font-size: 18px;
+      font-size: 20px;
+      font-weight: 200;
       color: rgba(244, 244, 244, 1);
     }
   }
@@ -191,7 +206,7 @@ h2 {
 
   &-title {
     & h2 {
-      font-size: 40px !important;
+      font-size: 43px !important;
 
       opacity: 0;
       transform: translateX(-100px);
@@ -253,7 +268,7 @@ h2 {
           opacity: 1;
           transform: none;
 
-          &:last-child{
+          &:last-child {
             transition-delay: 0.5s;
           }
         }
@@ -323,7 +338,7 @@ h2 {
   margin-bottom: 50px;
   &-left {
     position: relative;
-    
+
     & img {
       position: absolute;
       height: 230px;
@@ -331,7 +346,7 @@ h2 {
       opacity: 0;
       transition: all 1s;
 
-      &:first-child{
+      &:first-child {
         transform: translateX(-100px);
       }
 
@@ -390,14 +405,14 @@ h2 {
       font-size: 14px;
 
       opacity: 0;
-        transform: translateX(-100px);
-        transition: all 1s;
-        transition-delay: 0.5s;
+      transform: translateX(-100px);
+      transition: all 1s;
+      transition-delay: 0.5s;
 
-        &.animated {
-          opacity: 1;
-          transform: none;
-        }
+      &.animated {
+        opacity: 1;
+        transform: none;
+      }
     }
   }
 }
