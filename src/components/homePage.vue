@@ -35,7 +35,7 @@
             </div>
             <div class="reputation-body-block-title">Лучшие сервисы</div>
             <div class="reputation-body-block-text">
-              Nullam senectus porttitor in eget. Eget rutrum leo interdum.
+              Мы предоставляем лучшие устройства и компоненты.
             </div>
           </div>
         </div>
@@ -46,7 +46,7 @@
             </div>
             <div class="reputation-body-block-title">Лучшая поддержка</div>
             <div class="reputation-body-block-text">
-              Cursus semper tellus volutpat aliquet lacus.
+              Мы всегда готовы оказать вам помощь, просто напишите нам.
             </div>
           </div>
         </div>
@@ -57,18 +57,17 @@
             </div>
             <div class="reputation-body-block-title">Лучшие проекты</div>
             <div class="reputation-body-block-text">
-              Ultricies at ipsum nunc, tristique nam lectus.
+              Наши проекты созданы для комфорта наших клиентов.
             </div>
           </div>
         </div>
       </div>
     </div>
     <div class="choose">
-      <h2>Подберите то, что нужно</h2>
+      <h2>Подберите то, что нужно<span class="pink">.</span></h2>
       <p class="col-md-8">
-        Независимо от масштаба проекта, мы гарантируем современные и высококачественные
-        решения в области видеонаблюдения, способствующие созданию безопасного и
-        технологичного будущего.
+        Мы гарантируем современные и качественные решения в видеонаблюдении для проектов
+        любого масштаба.
       </p>
       <div :class="isScrolled(950, null)" class="choose-cameras row gx-3">
         <div class="choose-cameras-frame col-3">
@@ -99,17 +98,15 @@
       <div class="about-content">
         <img src="@/assets/img/about.png" alt="we" class="about-content-image" />
         <div class="about-content-text">
-          <h2 :class="isScrolled(1500, 3000)">Раздел о нас и кто мы</h2>
+          <h2 :class="isScrolled(1500, 3000)">Кто мы<span class="pink">?</span></h2>
           <p>
-            Уже 10 лет мы занимаем лидирующие позиции на рынке видеонаблюдения. Благодаря
-            использованию передовых технологий, мы предлагаем решения, которые
-            обеспечивают максимальный комфорт и удобство для наших клиентов.
+            На протяжении 10 лет мы удерживаем лидерство на рынке видеонаблюдения,
+            предлагая передовые технологии для максимального комфорта клиентов.
             <br />
             <br />
-            Наша команда, обладая высоким уровнем профессионализма, разрабатывает
-            индивидуальные проекты любого масштаба, гарантируя надежность и
-            инновационность. Мы стремимся к тому, чтобы каждое наше решение способствовало
-            созданию безопасного и технологически продвинутого будущего.
+            Наша профессиональная команда разрабатывает индивидуальные проекты любого
+            масштаба, обеспечивая надежность и инновации, стремясь создать безопасное и
+            технологически продвинутое будущее.
           </p>
           <!-- <router-link :to="'/about'" class="about-content-text-link">
             Читать далее &nbsp;<i
@@ -202,7 +199,7 @@
   <div class="container">
     <div class="catalog">
       <div class="catalog-head">
-        <h2>Каталог</h2>
+        <h2>Каталог<span class="pink">.</span></h2>
         <ul class="catalog-head-list">
           <li
             v-for="filter in filters"
@@ -819,7 +816,7 @@ h2 {
       flex-direction: column;
       padding-top: 10px;
       & h2 {
-        font-size: 40px;
+        font-size: 64px !important;
         margin-bottom: 40px;
       }
 
@@ -1014,7 +1011,7 @@ h2 {
     & p {
       font-size: 20px;
       color: rgba(82, 91, 122, 1);
-      margin-bottom: 80px;
+      margin-bottom: 34px;
     }
     & .animated {
       opacity: 1;
@@ -1099,6 +1096,7 @@ h2 {
   &-head {
     margin-bottom: 10px;
     & h2 {
+      font-size: 48px !important;
       margin-bottom: 64px;
     }
     &-list {
