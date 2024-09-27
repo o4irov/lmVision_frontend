@@ -10,19 +10,19 @@
       <div style="width: 100%">
         <div class="lists">
           <ul>
-            <p>Страницы</p>
+            <p>Страницы<span class="pink">.</span></p>
             <li><a href="/about">О нас</a></li>
             <li><a href="/catalog">Каталог</a></li>
             <li><a href="/payment">Доставка|Оплата</a></li>
             <li><a href="/contacts">Контакты</a></li>
           </ul>
           <ul>
-            <p>Соцсети</p>
+            <p>Соцсети<span class="pink">.</span></p>
             <li><a href="#">Telegram</a></li>
             <li><a href="#">Whatsapp</a></li>
           </ul>
           <ul>
-            <p>Информация</p>
+            <p>Информация<span class="pink">.</span></p>
             <li>
               <a href="https://02.rkn.gov.ru/directions/p4172/p18331/"
                 >Политика обработки данных</a
@@ -104,6 +104,7 @@ footer {
 .lists li {
   font-size: 18px;
   margin-bottom: 4px;
+  font-weight: 200;
 }
 li a {
   text-decoration: none;
