@@ -6,7 +6,7 @@ if (user && user.accessToken) {
     token = user.accessToken;
 }
 export default axios.create({
-    baseURL: "https://localhost:8000/api", // указание адреса сервера
+    baseURL: "/api", // указание адреса сервера
     headers: {
         "Content-Type": "application/json", // обмен данными будем осуществлять в формате json
         "x-access-token": token
